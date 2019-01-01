@@ -10,10 +10,6 @@ import org.jetbrains.anko.toast
 
 class RegisterActivity : BaseMvpActivity<RegisterPresenter>(), RegisterView {
 
-    override fun registerResult() {
-        toast("注册成功")
-    }
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,10 +27,16 @@ class RegisterActivity : BaseMvpActivity<RegisterPresenter>(), RegisterView {
             //startActivity<TestAnkoActivity>("id" to 100) // Context 的扩展
             //startActivity(intentFor<TestAnkoActivity>("id" to 111)) // Intent 的扩展
 
-            mPresenter.register()
+            mPresenter.register(mMobileEt.text.toString(), mVerifyCodeEt.text.toString(), mPwdEt.text.toString())
 
         }
 
 
     }
+
+    //实现 RegisterView 方法
+    override fun registerResult(result:Boolean) {
+        toast("注册成功 $result")
+    }
+
 }
