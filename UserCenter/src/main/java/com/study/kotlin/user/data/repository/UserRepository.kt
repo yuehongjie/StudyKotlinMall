@@ -6,8 +6,9 @@ import com.study.kotlin.user.data.api.UserApi
 import com.study.kotlin.user.data.protocol.RegisterReq
 import retrofit2.Retrofit
 import rx.Observable
+import javax.inject.Inject
 
-class UserRepository {
+class UserRepository @Inject constructor() {
 
     fun register(mobile: String, verifyCode: String, pwd: String): Observable<BaseResp<String>> {
 
