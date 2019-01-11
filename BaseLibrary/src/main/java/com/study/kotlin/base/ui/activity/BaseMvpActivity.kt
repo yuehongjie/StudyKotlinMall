@@ -7,6 +7,8 @@ import com.study.kotlin.base.injection.component.DaggerActivityComponent
 import com.study.kotlin.base.injection.module.ActivityModule
 import com.study.kotlin.base.presenter.BasePresenter
 import com.study.kotlin.base.presenter.view.BaseView
+import com.study.kotlin.base.widgets.ProgressLoading
+import org.jetbrains.anko.toast
 import javax.inject.Inject
 
 /**
@@ -23,6 +25,9 @@ abstract class BaseMvpActivity<T: BasePresenter<*>> : BaseActivity(), BaseView {
     @Inject
     lateinit var mPresenter: T
 
+    //加载弹窗
+    lateinit var mProgressLoading: ProgressLoading
+
     // 提供 Activity 的 Component
     lateinit var activityComponent: ActivityComponent
 
@@ -31,7 +36,12 @@ abstract class BaseMvpActivity<T: BasePresenter<*>> : BaseActivity(), BaseView {
 
         initActivityInjection()
         injectComponent()
+        initView()
 
+    }
+
+    private fun initView() {
+        mProgressLoading = ProgressLoading.create(this)
     }
 
     private fun initActivityInjection() {
@@ -50,15 +60,15 @@ abstract class BaseMvpActivity<T: BasePresenter<*>> : BaseActivity(), BaseView {
 
 
     override fun showLoading() {
-
+        mProgressLoading.showProgress()
     }
 
     override fun hideLoading() {
-
+        mProgressLoading.hideProgress()
     }
 
-    override fun onError() {
-
+    override fun onError(msg: String) {
+        toast(msg)
     }
 
 

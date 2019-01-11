@@ -1,7 +1,8 @@
 package com.study.kotlin.mall.ui.activity
 
-import android.support.v7.app.AppCompatActivity
+
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.study.kotlin.mall.R
 
 class MainActivity : AppCompatActivity() {

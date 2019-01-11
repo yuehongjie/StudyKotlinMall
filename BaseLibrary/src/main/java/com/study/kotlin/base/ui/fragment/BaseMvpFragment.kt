@@ -8,6 +8,7 @@ import com.study.kotlin.base.injection.component.DaggerActivityComponent
 import com.study.kotlin.base.injection.module.ActivityModule
 import com.study.kotlin.base.presenter.BasePresenter
 import com.study.kotlin.base.presenter.view.BaseView
+import org.jetbrains.anko.toast
 import javax.inject.Inject
 
 /**
@@ -64,8 +65,8 @@ abstract class BaseMvpFragment<T: BasePresenter<*>> : BaseFragment(), BaseView {
 
     }
 
-    override fun onError() {
-
+    override fun onError(msg: String) {
+        mActivity.toast(msg)
     }
 
 

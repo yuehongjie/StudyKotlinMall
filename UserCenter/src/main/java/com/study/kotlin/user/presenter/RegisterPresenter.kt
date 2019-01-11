@@ -1,14 +1,11 @@
 package com.study.kotlin.user.presenter
 
-import android.util.Log
-import com.study.kotlin.base.data.protocol.BaseResp
+
 import com.study.kotlin.base.ext.execute
 import com.study.kotlin.base.presenter.BasePresenter
 import com.study.kotlin.base.rx.BaseSubscriber
-import com.study.kotlin.user.data.repository.UserRepository
 import com.study.kotlin.user.presenter.view.RegisterView
 import com.study.kotlin.user.service.UserService
-import com.study.kotlin.user.service.impl.UserServiceImpl
 import javax.inject.Inject
 
 
@@ -20,16 +17,21 @@ class RegisterPresenter @Inject constructor(): BasePresenter<RegisterView>() {
 
     fun register(mobile: String, verifyCode: String, pwd: String){
 
-        // 业务逻辑
+        if (!isNetWorkAvailable()) {
+            mView.onError("网络不可用，请检查网络连接")
+            return
+        }
+        //加载弹窗，弹窗的取消在 BaseSubscriber 中做了处理
+        mView.showLoading()
 
         userService.register(mobile, verifyCode, pwd)
-            .execute(object :BaseSubscriber<Boolean> (){
+            .execute(object :BaseSubscriber<Boolean> (mView){
 
                 override fun onNext(t: Boolean) {
                     if (t) {
                         mView.registerResult("注册成功")
                     }else {
-                        mView.registerResult("注册失败")
+                        mView.onError("注册失败")
                     }
 
                 }

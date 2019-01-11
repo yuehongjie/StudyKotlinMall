@@ -48,4 +48,22 @@ class RegisterActivity : BaseMvpActivity<RegisterPresenter>(), RegisterView {
         toast(result)
     }
 
+
+    private var lastPressedTime = 0L
+
+    //双击返回键 退出 App
+    override fun onBackPressed() {
+
+        val time = System.currentTimeMillis()
+        if (time - lastPressedTime > 2000) {
+
+            toast("再按一次退出")
+            lastPressedTime = time
+
+            return
+        }
+
+        super.onBackPressed()
+    }
+
 }

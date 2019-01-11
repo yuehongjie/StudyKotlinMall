@@ -1,6 +1,7 @@
 package com.study.kotlin.base.common
 
 import android.app.Application
+import android.content.Context
 import com.study.kotlin.base.injection.component.AppComponent
 import com.study.kotlin.base.injection.component.DaggerAppComponent
 import com.study.kotlin.base.injection.module.AppModule
@@ -14,6 +15,8 @@ class BaseApplication : Application() {
     override fun onCreate() {
         super.onCreate()
 
+        context = this
+
         initAppInjection()
 
     }
@@ -22,6 +25,11 @@ class BaseApplication : Application() {
 
         appComponent = DaggerAppComponent.builder().appModule(AppModule(this)).build()
 
+    }
+
+
+    companion object {
+        lateinit var context:BaseApplication
     }
 
 }
