@@ -1,10 +1,13 @@
 package com.study.kotlin.base.widgets
 
+import android.app.Activity
 import android.content.Context
 import android.util.AttributeSet
 import android.view.View
 import android.widget.FrameLayout
+import android.widget.TextView
 import com.study.kotlin.base.R
+import com.study.kotlin.base.ext.onClick
 import kotlinx.android.synthetic.main.layout_header_bar.view.*
 
 class HeaderBar @JvmOverloads constructor(
@@ -46,6 +49,18 @@ class HeaderBar @JvmOverloads constructor(
             mRightTv.text = it
         }
 
+        //左侧按钮点击 一般是返回
+        mLeftIv.onClick {
+            if (context is Activity) {
+                (context as Activity).onBackPressed()
+            }
+        }
+
+    }
+
+    /** 获取右侧文本按钮 */
+    fun getRightView(): TextView {
+        return mRightTv
     }
 
 }

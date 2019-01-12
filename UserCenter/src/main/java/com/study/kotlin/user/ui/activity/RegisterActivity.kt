@@ -1,6 +1,8 @@
 package com.study.kotlin.user.ui.activity
 
 import android.os.Bundle
+import android.view.View
+import com.study.kotlin.base.ext.enable
 import com.study.kotlin.base.ext.onClick
 import com.study.kotlin.base.ui.activity.BaseMvpActivity
 import com.study.kotlin.user.R
@@ -10,21 +12,31 @@ import com.study.kotlin.user.presenter.view.RegisterView
 import kotlinx.android.synthetic.main.activity_register.*
 import org.jetbrains.anko.toast
 
-class RegisterActivity : BaseMvpActivity<RegisterPresenter>(), RegisterView {
+class RegisterActivity : BaseMvpActivity<RegisterPresenter>(), RegisterView , View.OnClickListener{
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
 
+        initView()
 
 
-        mRegisterBtn.onClick {
+    }
 
-            mPresenter.register(mMobileEt.text.toString(), mVerifyCodeEt.text.toString(), mPwdEt.text.toString())
+    private fun initView() {
 
-        }
+        mRegisterBtn.onClick(this)
+        mVerifyCodeBtn.onClick(this)
 
+        //监听注册按钮是否可用
+        mRegisterBtn.enable(mMobileEt){ isRegisterBtnEnable() } //参数 lambda 最后一个参数可以放在括号外
+        mRegisterBtn.enable(mVerifyCodeEt){ isRegisterBtnEnable() }
+        mRegisterBtn.enable(mPwdEt){ isRegisterBtnEnable() }
+        mRegisterBtn.enable(mPwdConfirmEt){ isRegisterBtnEnable() }
+
+        //监听获取验证码按钮是否可用
+        mVerifyCodeBtn.enable(mMobileEt) {isVerifyBtnEnable()}
 
     }
 
@@ -49,6 +61,7 @@ class RegisterActivity : BaseMvpActivity<RegisterPresenter>(), RegisterView {
     }
 
 
+    /*
     private var lastPressedTime = 0L
 
     //双击返回键 退出 App
@@ -64,6 +77,38 @@ class RegisterActivity : BaseMvpActivity<RegisterPresenter>(), RegisterView {
         }
 
         super.onBackPressed()
+    }
+    */
+
+
+
+    //按钮点击
+    override fun onClick(v: View) {
+
+        when(v.id) {
+            R.id.mRegisterBtn ->
+                mPresenter.register(mMobileEt.text.toString(), mVerifyCodeEt.text.toString(), mPwdEt.text.toString())
+
+            //R.id.mVerifyCodeBtn ->
+        }
+
+    }
+
+
+    /**
+     * 注册按钮是否可用
+     */
+    private fun isRegisterBtnEnable(): Boolean {
+        //四个输入框都不为空的时候按钮可点击
+        return mMobileEt.text.isNullOrEmpty().not() &&
+                mVerifyCodeEt.text.isNullOrEmpty().not() &&
+                mPwdEt.text.isNullOrEmpty().not() &&
+                mPwdConfirmEt.text.isNullOrEmpty().not()
+    }
+
+    /** 获取验证码的按钮是否可用 */
+    private fun isVerifyBtnEnable(): Boolean {
+        return mMobileEt.text.isNullOrEmpty().not()
     }
 
 }

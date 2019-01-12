@@ -1,10 +1,13 @@
 package com.study.kotlin.base.ext
 
 import android.view.View
+import android.widget.Button
+import android.widget.EditText
 import com.study.kotlin.base.data.protocol.BaseResp
 import com.study.kotlin.base.rx.BaseFunc
 import com.study.kotlin.base.rx.BaseFuncBoolean
 import com.study.kotlin.base.rx.BaseSubscriber
+import com.study.kotlin.base.widgets.DefaultTextWatcher
 import rx.Observable
 import rx.Subscription
 import rx.android.schedulers.AndroidSchedulers
@@ -48,5 +51,25 @@ fun View.onClick(method: () -> Unit) {
 fun View.onClick(listener: View.OnClickListener) {
 
     this.setOnClickListener(listener)
+
+}
+
+/**
+ * 根据输入框的文本内容变化，确定按钮是否可用，具体的判断方式由传入的 lambda 函数判断
+ */
+fun Button.enable(editText: EditText, method: () -> Boolean) {
+
+    val btn = this
+
+    editText.addTextChangedListener(object: DefaultTextWatcher() {
+
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            super.onTextChanged(s, start, before, count)
+
+            btn.isEnabled = method()
+
+        }
+
+    } )
 
 }

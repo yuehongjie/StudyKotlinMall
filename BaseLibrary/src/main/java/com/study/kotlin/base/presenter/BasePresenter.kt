@@ -19,7 +19,13 @@ open class BasePresenter <T: BaseView> {
 
     fun isNetWorkAvailable():Boolean {
 
-        return NetWorkUtils.isNetWorkAvailable(mContext)
+        val available = NetWorkUtils.isNetWorkAvailable(mContext)
+
+        if (!available) {
+            mView.onError("网络不可用，请检查网络连接")
+        }
+
+        return available
 
     }
 

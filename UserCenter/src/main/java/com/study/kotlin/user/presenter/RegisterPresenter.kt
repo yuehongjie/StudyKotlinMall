@@ -18,7 +18,6 @@ class RegisterPresenter @Inject constructor(): BasePresenter<RegisterView>() {
     fun register(mobile: String, verifyCode: String, pwd: String){
 
         if (!isNetWorkAvailable()) {
-            mView.onError("网络不可用，请检查网络连接")
             return
         }
         //加载弹窗，弹窗的取消在 BaseSubscriber 中做了处理
@@ -30,8 +29,6 @@ class RegisterPresenter @Inject constructor(): BasePresenter<RegisterView>() {
                 override fun onNext(t: Boolean) {
                     if (t) {
                         mView.registerResult("注册成功")
-                    }else {
-                        mView.onError("注册失败")
                     }
 
                 }

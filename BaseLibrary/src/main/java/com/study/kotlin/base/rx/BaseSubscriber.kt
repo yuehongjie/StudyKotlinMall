@@ -6,7 +6,7 @@ import rx.Subscriber
 open  class BaseSubscriber<T>(private val mBaseView: BaseView): Subscriber<T>() {
 
 
-    override fun onNext(t: T) {
+    override fun onNext(result: T) {
 
     }
 
@@ -18,5 +18,10 @@ open  class BaseSubscriber<T>(private val mBaseView: BaseView): Subscriber<T>() 
     //数据加载失败会调用
     override fun onError(e: Throwable?) {
         mBaseView.hideLoading()
+        //如果是自定义的异常 提示错误信息
+        if (e is BaseException) {
+            mBaseView.onError(e.msg)
+        }
     }
+
 }
