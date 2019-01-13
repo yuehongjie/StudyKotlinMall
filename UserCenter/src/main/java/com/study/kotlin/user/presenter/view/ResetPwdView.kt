@@ -5,6 +5,6 @@ import com.study.kotlin.user.data.protocol.UserInfo
 
 interface ResetPwdView: BaseView {
 
-    fun forgetPwdResult(result: String)
+    fun resetPwdResult(result: String)
 
 }

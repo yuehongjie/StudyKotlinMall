@@ -58,8 +58,17 @@ dependencies {
     kapt "com.google.dagger:dagger-compiler:$dagger_version"
 
     // glide4
-    api 'com.github.bumptech.glide:glide:4.8.0'
-    kapt 'com.github.bumptech.glide:compiler:4.8.0'
+    api "com.github.bumptech.glide:glide:$glide_version"
+    kapt "com.github.bumptech.glide:compiler:$glide_version"
+
+    //圆形图片库
+    api "de.hdodenhof:circleimageview:$circle_imageview_version"
+
+    //拍照和拾取照片的库
+    api "com.jph.takephoto:takephoto_library:$take_photo_version"
+
+    //仿 iOS 的 AlertViewController 的弹窗
+    api "com.bigkoo:alertview:$alert_view_version"
 
 
 }

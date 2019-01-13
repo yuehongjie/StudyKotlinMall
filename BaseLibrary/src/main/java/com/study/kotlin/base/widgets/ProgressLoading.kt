@@ -16,7 +16,7 @@ class ProgressLoading private constructor(context: Context, themeResId: Int) : D
 
     companion object {
 
-        private lateinit var animDrawable:AnimationDrawable
+        private var animDrawable:AnimationDrawable ? = null
 
         private lateinit var mDialog: ProgressLoading
 
@@ -52,15 +52,17 @@ class ProgressLoading private constructor(context: Context, themeResId: Int) : D
 
     fun showProgress() {
 
-        mDialog.show()
-        animDrawable.start()
+        // 千万不能直接用 mDialog.show()，否则会出现从别的页面回来，再次使用 Dialog 的时候崩溃的问题：
+        // Unable to add window -- token android.os.BinderProxy@8153858 is not valid; is your activity running
+        super.show()
+        animDrawable?.start()
 
     }
 
     fun hideProgress() {
 
-        mDialog.dismiss()
-        animDrawable.stop()
+        super.dismiss()
+        animDrawable?.stop()
 
     }
 

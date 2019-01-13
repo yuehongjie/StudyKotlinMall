@@ -58,6 +58,9 @@ class ForgetPwdActivity: BaseMvpActivity<ForgetPwdPresenter>(), ForgetPwdView, V
 
         toast(result)
 
+        //验证成功，跳转至修改密码页面
+        startActivity<ResetPwdActivity>( "mobile" to mMobileEt.text.toString())
+
     }
 
 

@@ -10,6 +10,7 @@ import com.study.kotlin.user.injection.component.DaggerUserComponent
 import com.study.kotlin.user.presenter.RegisterPresenter
 import com.study.kotlin.user.presenter.view.RegisterView
 import kotlinx.android.synthetic.main.activity_register.*
+import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
 
 class RegisterActivity : BaseMvpActivity<RegisterPresenter>(), RegisterView , View.OnClickListener{
@@ -58,6 +59,9 @@ class RegisterActivity : BaseMvpActivity<RegisterPresenter>(), RegisterView , Vi
     override fun registerResult(result: String) {
 
         toast(result)
+
+        //注册成功返回到登录页面(singleTask 任务栈中只有一个实例)
+        startActivity<LoginActivity>()
     }
 
 

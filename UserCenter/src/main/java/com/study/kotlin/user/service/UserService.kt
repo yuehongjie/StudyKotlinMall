@@ -5,10 +5,7 @@ import com.study.kotlin.base.data.net.RetrofitFactory
 import com.study.kotlin.base.ext.convert
 import com.study.kotlin.base.ext.convertBoolean
 import com.study.kotlin.user.data.api.UserApi
-import com.study.kotlin.user.data.protocol.ForgetPwdReq
-import com.study.kotlin.user.data.protocol.LoginReq
-import com.study.kotlin.user.data.protocol.RegisterReq
-import com.study.kotlin.user.data.protocol.UserInfo
+import com.study.kotlin.user.data.protocol.*
 import rx.Observable
 
 class UserService {
@@ -34,6 +31,14 @@ class UserService {
 
         return RetrofitFactory.instance.create(UserApi::class.java)
             .forgetPwd(ForgetPwdReq(mobile, verifyCode))
+            .convertBoolean()
+
+    }
+
+    fun resetPwd(mobile: String, pwd: String):Observable<Boolean> {
+
+        return RetrofitFactory.instance.create(UserApi::class.java)
+            .resetPwd(ResetPwdReq(mobile, pwd))
             .convertBoolean()
 
     }

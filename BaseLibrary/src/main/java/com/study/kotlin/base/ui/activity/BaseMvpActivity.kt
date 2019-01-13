@@ -34,9 +34,9 @@ abstract class BaseMvpActivity<T: BasePresenter<*>> : BaseActivity(), BaseView {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        initView()
         initActivityInjection()
         injectComponent()
-        initView()
 
     }
 
