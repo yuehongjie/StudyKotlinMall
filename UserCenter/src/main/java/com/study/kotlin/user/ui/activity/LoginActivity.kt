@@ -58,6 +58,8 @@ class LoginActivity: BaseMvpActivity<LoginPresenter>(), LoginView, View.OnClickL
 
         toast("登录成功")
 
+        startActivity<UserInfoActivity>()
+
     }
 
 
