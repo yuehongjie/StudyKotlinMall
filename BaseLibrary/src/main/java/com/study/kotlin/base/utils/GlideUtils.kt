@@ -13,6 +13,13 @@ import com.study.kotlin.base.R
 object GlideUtils {
 
 
+    fun loadImage(context: Context, url: String, placeholder: Int, imageView: ImageView) {
+
+        val options = RequestOptions().centerCrop().placeholder(placeholder)
+
+        Glide.with(context).load(url).apply(options).into(imageView)
+    }
+
     fun loadImage(context: Context, url: String, imageView: ImageView) {
 
         val options = RequestOptions().centerCrop()

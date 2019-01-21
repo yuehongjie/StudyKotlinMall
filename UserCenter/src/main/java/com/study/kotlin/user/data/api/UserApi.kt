@@ -4,7 +4,6 @@ import com.study.kotlin.base.data.protocol.BaseResp
 import com.study.kotlin.user.data.protocol.*
 import retrofit2.http.Body
 import retrofit2.http.POST
-import retrofit2.http.Query
 import rx.Observable
 
 interface UserApi {
@@ -20,5 +19,8 @@ interface UserApi {
 
     @POST("userCenter/resetPwd")
     fun resetPwd(@Body req: ResetPwdReq): Observable<BaseResp<String>>
+
+    @POST("userCenter/editUser")
+    fun editUser(@Body req:EditUserReq): Observable<BaseResp<UserInfo>>
 
 }

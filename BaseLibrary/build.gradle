@@ -70,7 +70,8 @@ dependencies {
     //仿 iOS 的 AlertViewController 的弹窗
     api "com.bigkoo:alertview:$alert_view_version"
 
-
+    //七牛云存储
+    api 'com.qiniu:qiniu-android-sdk:7.3.15'
 }
 
 

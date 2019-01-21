@@ -2,6 +2,7 @@ package com.study.kotlin.user.ui.activity
 
 import android.os.Bundle
 import android.view.View
+import com.kotlin.user.utils.UserPrefsUtils
 import com.study.kotlin.base.ext.enable
 import com.study.kotlin.base.ui.activity.BaseMvpActivity
 import com.study.kotlin.user.R
@@ -57,6 +58,7 @@ class LoginActivity: BaseMvpActivity<LoginPresenter>(), LoginView, View.OnClickL
     override fun loginResult(result: UserInfo) {
 
         toast("登录成功")
+        UserPrefsUtils.putUserInfo(result)
 
         startActivity<UserInfoActivity>()
 

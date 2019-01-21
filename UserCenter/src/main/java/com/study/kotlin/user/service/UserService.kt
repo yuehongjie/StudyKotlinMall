@@ -43,4 +43,12 @@ class UserService {
 
     }
 
+    fun editUser(userIcon: String, userName: String, gender: String, sign: String): Observable<UserInfo> {
+
+        return RetrofitFactory.instance.create(UserApi::class.java)
+            .editUser(EditUserReq(userIcon, userName, gender, sign))
+            .convert()
+
+    }
+
 }

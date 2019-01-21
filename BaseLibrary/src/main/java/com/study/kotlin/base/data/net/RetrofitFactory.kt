@@ -1,9 +1,9 @@
 package com.study.kotlin.base.data.net
 
 import com.study.kotlin.base.common.BaseConstant
+import com.study.kotlin.base.utils.AppPrefsUtils
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
-import okhttp3.Request
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory
@@ -53,6 +53,7 @@ class RetrofitFactory private constructor(){
                 .newBuilder()
                 .addHeader("Content-Type", "application/json")
                 .addHeader("charset", "UTF-8")
+                .addHeader("token", AppPrefsUtils.getString(BaseConstant.KEY_SP_TOKEN))
                 .build()
 
             it.proceed(request)
