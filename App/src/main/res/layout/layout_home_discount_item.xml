@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:gravity="center_horizontal"
+              android:layout_margin="@dimen/common_margin_small"
+              style="@style/WrapWrap.Vertical">
+    
+    <com.lid.lib.LabelImageView
+        android:id="@+id/mDiscountIv"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        app:label_backgroundColor="@color/common_yellow"
+        app:label_orientation="RIGHT_TOP"
+        app:label_textColor="@color/common_white"
+        app:label_distance="20dp"
+        app:label_text="折扣"
+        app:label_textSize="10sp"/>
+    
+    <TextView android:id="@+id/mDiscountAfterTv"
+              style="@style/WrapWrap"
+              android:textSize="@dimen/text_small_size"
+              android:textColor="@color/common_red"
+              android:layout_marginTop="@dimen/common_margin_small"/>
+    <TextView android:id="@+id/mDiscountBeforeTv"
+              style="@style/WrapWrap"
+              android:textSize="10.0sp"
+              android:textColor="@color/common_disable"/>
+</LinearLayout>

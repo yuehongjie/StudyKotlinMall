@@ -35,6 +35,7 @@ allprojects {
         google()
         mavenCentral() // 增加 mavenCentral
         jcenter()
+        maven { url "https://jitpack.io" }
     }
 }
 
