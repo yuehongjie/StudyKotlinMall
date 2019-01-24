@@ -60,7 +60,7 @@ class LoginActivity: BaseMvpActivity<LoginPresenter>(), LoginView, View.OnClickL
         toast("登录成功")
         UserPrefsUtils.putUserInfo(result)
 
-        startActivity<UserInfoActivity>()
+        finish()
 
     }
 
