@@ -1,2 +1,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-		  package="com.study.kotlin.goods"/>
+		  package="com.study.kotlin.goods">
+
+
+	<application>
+
+		<activity android:name=".ui.activity.GoodsListActivity"/>
+
+	</application>
+
+</manifest>

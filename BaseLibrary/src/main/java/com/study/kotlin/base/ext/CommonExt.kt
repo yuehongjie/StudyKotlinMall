@@ -3,10 +3,12 @@ package com.study.kotlin.base.ext
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
 import com.study.kotlin.base.data.protocol.BaseResp
 import com.study.kotlin.base.rx.BaseFunc
 import com.study.kotlin.base.rx.BaseFuncBoolean
 import com.study.kotlin.base.rx.BaseSubscriber
+import com.study.kotlin.base.utils.GlideUtils
 import com.study.kotlin.base.widgets.DefaultTextWatcher
 import rx.Observable
 import rx.Subscription
@@ -71,5 +73,11 @@ fun Button.enable(editText: EditText, method: () -> Boolean) {
         }
 
     } )
+
+}
+
+fun ImageView.loadUrl(url: String) {
+
+    GlideUtils.loadImage(context, url, this)
 
 }
