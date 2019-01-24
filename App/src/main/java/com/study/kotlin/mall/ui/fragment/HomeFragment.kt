@@ -10,9 +10,12 @@ import com.study.kotlin.base.widgets.BannerImageLoader
 import com.study.kotlin.mall.R
 import com.study.kotlin.mall.common.*
 import com.study.kotlin.mall.ui.adapter.HomeDiscountAdapter
+import com.study.kotlin.mall.ui.adapter.TopicAdapter
 import com.youth.banner.BannerConfig
 import com.youth.banner.Transformer
 import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.android.synthetic.main.layout_topic_item.*
+import me.crosswall.lib.coverflow.CoverFlow
 
 class HomeFragment: BaseFragment() {
 
@@ -29,6 +32,7 @@ class HomeFragment: BaseFragment() {
         initBanner()
         initFlipperNews()
         initDiscount()
+        initTopic()
 
     }
 
@@ -69,6 +73,21 @@ class HomeFragment: BaseFragment() {
         mHomeDiscountRv.adapter = discountAdapter
         discountAdapter.setData(mutableListOf(HOME_DISCOUNT_ONE, HOME_DISCOUNT_TWO, HOME_DISCOUNT_THREE, HOME_DISCOUNT_FOUR, HOME_DISCOUNT_FIVE))
 
+
+    }
+
+    private fun initTopic() {
+
+        mTopicPager.adapter = TopicAdapter(context!!, listOf(HOME_TOPIC_ONE, HOME_TOPIC_TWO, HOME_TOPIC_THREE, HOME_TOPIC_FOUR, HOME_TOPIC_FIVE))
+        mTopicPager.currentItem = 1
+        mTopicPager.offscreenPageLimit = 5
+
+        CoverFlow.Builder()
+            .with(mTopicPager)
+            .pagerMargin(-30f) //每页之间的间距
+            .scale(0.3f)
+            .spaceSize(0f) //好像也跟间距有关系
+            .build()
 
     }
 

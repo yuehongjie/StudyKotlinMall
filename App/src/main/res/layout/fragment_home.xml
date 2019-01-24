@@ -1,60 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<androidx.core.widget.NestedScrollView
 	xmlns:android="http://schemas.android.com/apk/res/android"
-	style="@style/MatchMatch.Vertical">
-	
+	style="@style/MatchMatch">
+
 	<LinearLayout
-		style="@style/SearchHeaderStyle"
-		android:paddingStart="@dimen/common_padding"
-		android:paddingEnd="@dimen/common_padding">
-		
+		xmlns:android="http://schemas.android.com/apk/res/android"
+		style="@style/MatchMatch.Vertical">
+
+		<LinearLayout
+			style="@style/SearchHeaderStyle"
+			android:paddingStart="@dimen/common_padding"
+			android:paddingEnd="@dimen/common_padding">
+
+			<TextView
+				android:id="@+id/mSearchTv"
+				android:hint="搜索商品/品类"
+				style="@style/SearchHeaderEtStyle"/>
+
+			<ImageView
+				android:id="@+id/mScanIv"
+				style="@style/WrapWrap"
+				android:src="@drawable/icon_scan"/>
+
+		</LinearLayout>
+
+		<com.youth.banner.Banner
+			android:id="@+id/mHomeBanner"
+			android:layout_width="match_parent"
+			android:layout_height="150dp"/>
+
+		<com.study.kotlin.message.widgets.NewsFlipperView
+			android:id="@+id/mNewsFlipper"
+			style="@style/MatchWrap"
+			android:layout_marginStart="@dimen/common_margin_middle"
+			android:layout_marginEnd="@dimen/common_margin_middle"
+			android:layout_marginTop="@dimen/common_margin_small"
+			android:layout_marginBottom="@dimen/common_margin_small"/>
+
 		<TextView
-			android:id="@+id/mSearchTv"
-			android:hint="搜索商品/品类"
-			style="@style/SearchHeaderEtStyle"/>
-		
-		<ImageView
-			android:id="@+id/mScanIv"
-			style="@style/WrapWrap"
-			android:src="@drawable/icon_scan"/>
-	
+			android:textSize="@dimen/text_small_size"
+			android:textStyle="bold"
+			android:textColor="@color/text_light_dark"
+			android:background="@color/common_white"
+			android:paddingStart="@dimen/common_padding"
+			android:paddingEnd="@dimen/common_padding"
+			android:paddingTop="@dimen/common_padding_small"
+			android:paddingBottom="@dimen/common_margin_small"
+			style="@style/MatchWrap"
+			android:text="火爆进行中"
+			android:drawableStart="@drawable/icon_special"
+			android:drawablePadding="@dimen/common_padding_small"/>
+
+		<androidx.recyclerview.widget.RecyclerView
+			android:id="@+id/mHomeDiscountRv"
+			style="@style/commonRecyclerView"
+			android:background="@color/common_white"
+			android:paddingLeft="@dimen/common_padding"
+			android:paddingRight="@dimen/common_padding"
+			android:paddingBottom="@dimen/common_padding_small"
+			android:layout_height="wrap_content"
+			/>
+
+
+		<me.crosswall.lib.coverflow.core.PagerContainer
+			android:id="@+id/mTopicContainer"
+			android:layout_width="match_parent"
+			android:layout_height="280dp"
+			android:background="@drawable/home_container_bg">
+
+			<androidx.viewpager.widget.ViewPager
+				android:id="@+id/mTopicPager"
+				android:layout_gravity="center"
+				android:layout_width="300dp"
+				android:layout_height="240dp"
+				android:overScrollMode="never"/>
+
+		</me.crosswall.lib.coverflow.core.PagerContainer>
+
 	</LinearLayout>
-	
-	<com.youth.banner.Banner
-		android:id="@+id/mHomeBanner"
-		android:layout_width="match_parent"
-		android:layout_height="150dp"/>
-	
-	<com.study.kotlin.message.widgets.NewsFlipperView
-		android:id="@+id/mNewsFlipper"
-		style="@style/MatchWrap"
-		android:layout_marginStart="@dimen/common_margin_middle"
-		android:layout_marginEnd="@dimen/common_margin_middle"
-		android:layout_marginTop="@dimen/common_margin_small"
-		android:layout_marginBottom="@dimen/common_margin_small"/>
-	
-	<TextView
-		android:textSize="@dimen/text_small_size"
-		android:textStyle="bold"
-		android:textColor="@color/text_light_dark"
-		android:background="@color/common_white"
-		android:paddingStart="@dimen/common_padding"
-		android:paddingEnd="@dimen/common_padding"
-		android:paddingTop="@dimen/common_padding_small"
-		android:paddingBottom="@dimen/common_margin_small"
-		style="@style/MatchWrap"
-		android:text="火爆进行中"
-		android:drawableStart="@drawable/icon_special"
-		android:drawablePadding="@dimen/common_padding_small"/>
-	
-	<androidx.recyclerview.widget.RecyclerView
-		android:id="@+id/mHomeDiscountRv"
-		style="@style/commonRecyclerView"
-		android:background="@color/common_white"
-		android:paddingLeft="@dimen/common_padding"
-		android:paddingRight="@dimen/common_padding"
-		android:paddingBottom="@dimen/common_padding_small"
-		android:layout_height="wrap_content"
-		/>
-	
-</LinearLayout>
+
+
+</androidx.core.widget.NestedScrollView>

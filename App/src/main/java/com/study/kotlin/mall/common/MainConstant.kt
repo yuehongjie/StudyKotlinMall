@@ -28,9 +28,9 @@ const val HOME_DISCOUNT_FIVE = "https://img14.360buyimg.com/n1/s190x190_jfs/t752
 /*
     首页话题图片
  */
-const val HOME_TOPIC_ONE = "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1502881866380&di=d252e1e8dd3a5a836fe360b02531f917&imgtype=0&src=http%3A%2F%2Fimg.zcool.cn%2Fcommunity%2F01f5ce56e112ef6ac72531cb37bec4.png%40900w_1l_2o_100sh.jpg"
-const val HOME_TOPIC_TWO = "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1502881904494&di=7a16834200a70469e1d3b6a4ab04c514&imgtype=0&src=http%3A%2F%2Fimg.zcool.cn%2Fcommunity%2F010d11554baebf000001bf721352ac.jpg"
-const val HOME_TOPIC_THREE = "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1502876222250&di=aa3290c84822ba5570f19cb76e1012af&imgtype=0&src=http%3A%2F%2Fimg.zcool.cn%2Fcommunity%2F0146d25768b5a10000018c1b00cf27.jpg%40900w_1l_2o_100sh.jpg"
-const val HOME_TOPIC_FOUR = "http://img.zcool.cn/community/01796c58772f66a801219c77e4fc04.png@1280w_1l_2o_100sh.png"
-const val HOME_TOPIC_FIVE = "http://img.zcool.cn/community/0154805791ffeb0000012e7edba495.jpg@900w_1l_2o_100sh.jpg"
+const val HOME_TOPIC_ONE = "https://d.vpimg1.com/upcb/2018/12/07/46/ias_154416789546782_570x273_90.jpg"
+const val HOME_TOPIC_TWO = "https://c.vpimg1.com/upcb/2018/10/18/161/ias_153982760279861_570x273_90.jpg"
+const val HOME_TOPIC_THREE = "https://d.vpimg1.com/upcb/2018/12/03/105/ias_154382618972533_570x273_90.jpg"
+const val HOME_TOPIC_FOUR = "https://d.vpimg1.com/upcb/2018/11/07/4/ias_154156195898514_570x273_90.jpg"
+const val HOME_TOPIC_FIVE = "https://c.vpimg1.com/upcb/2018/11/16/2/ias_154235953255562_570x273_90.jpg"
 

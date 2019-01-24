@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/WrapWrap"
+    app:cardBackgroundColor="@color/common_white"
+    app:cardCornerRadius="@dimen/common_radius"
+    app:cardElevation="2.0dip">
+
+    <LinearLayout style="@style/MatchWrap.Vertical">
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/mTopicIv"
+            android:layout_width="300dp"
+            android:layout_height="180dp"
+            app:riv_corner_radius_top_left="@dimen/common_radius"
+            app:riv_corner_radius_top_right="@dimen/common_radius"
+            app:riv_mutate_background="true"/>
+
+        <TextView android:textColor="@color/text_light_dark"
+                  style="@style/WrapWrap"
+                  android:layout_margin="@dimen/common_margin_small"
+                  android:text="爱生活"/>
+
+        <TextView android:textSize="@dimen/text_small_size"
+                  android:textColor="@color/text_dark"
+                  style="@style/WrapWrap"
+                  android:layout_marginBottom="@dimen/common_margin_small"
+                  android:layout_marginStart="@dimen/common_margin_small"
+                  android:text="有品有范有时尚"/>
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
+
+
+
+
