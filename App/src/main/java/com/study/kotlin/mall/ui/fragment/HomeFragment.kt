@@ -5,8 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.study.kotlin.base.ext.onClick
 import com.study.kotlin.base.ui.fragment.BaseFragment
 import com.study.kotlin.base.widgets.BannerImageLoader
+import com.study.kotlin.goods.ui.activity.SearchGoodsActivity
 import com.study.kotlin.mall.R
 import com.study.kotlin.mall.common.*
 import com.study.kotlin.mall.ui.adapter.HomeDiscountAdapter
@@ -16,6 +18,7 @@ import com.youth.banner.Transformer
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.layout_topic_item.*
 import me.crosswall.lib.coverflow.CoverFlow
+import org.jetbrains.anko.support.v4.startActivity
 
 class HomeFragment: BaseFragment() {
 
@@ -37,6 +40,10 @@ class HomeFragment: BaseFragment() {
     }
 
     private fun initView() {
+
+        mSearchTv.onClick {
+            startActivity<SearchGoodsActivity>()
+        }
 
     }
 

@@ -23,7 +23,6 @@ class GoodsListActivity: BaseMvpActivity<GoodsListPresenter>(), GoodsListView,
 
 
     private lateinit var mGoodsAdapter: GoodsAdapter
-    private lateinit var mGoodsList: MutableList<Goods>
     private var mCurrentPage: Int = 1
     private var mMaxPage: Int = 1
 
@@ -76,13 +75,21 @@ class GoodsListActivity: BaseMvpActivity<GoodsListPresenter>(), GoodsListView,
     }
 
     /**
-     * 加载商品列表
+     * 通过分类/关键字 加载商品列表
      */
     private fun loadData() {
 
-        val categoryId = intent.getIntExtra(GoodsConstant.KEY_CATEGORY_ID, 0)
-        mPresenter.getGoodsList(categoryId, mCurrentPage)
+        //关键字搜索
+        if (intent.getIntExtra(GoodsConstant.KEY_GOODS_LIST_TYPE, 0) == GoodsConstant.KEY_TYPE_SEARCH_KEYWORD) {
 
+            val keyword = intent.getStringExtra(GoodsConstant.KEY_GOODS_KEYWORD)
+            mPresenter.getGoodsListByKeyword(keyword, mCurrentPage)
+
+        }else { //分类搜索
+
+            val categoryId = intent.getIntExtra(GoodsConstant.KEY_CATEGORY_ID, 0)
+            mPresenter.getGoodsList(categoryId, mCurrentPage)
+        }
 
     }
 
@@ -94,30 +101,27 @@ class GoodsListActivity: BaseMvpActivity<GoodsListPresenter>(), GoodsListView,
 
     override fun onGetGoodsListResult(result: MutableList<Goods>?) {
 
-        Log.e("GoodsListActivity", "加载完成")
 
+        if (result.isNullOrEmpty()) {
 
-        if (result == null) {
-
-            if (mGoodsList.isNullOrEmpty()) mMultiStateView.viewState = MultiStateView.VIEW_STATE_ERROR
-
-        }else if (result.isEmpty()) {
-
-            if (mGoodsList.isNullOrEmpty()) mMultiStateView.viewState = MultiStateView.VIEW_STATE_EMPTY
+            //之前也没有加载过数据
+            if (mGoodsAdapter.dataList.isEmpty()) {
+                mMultiStateView.viewState = MultiStateView.VIEW_STATE_EMPTY
+            }
 
         }else {
 
             mMaxPage = result[0].maxPage
 
-
             if (mCurrentPage == 1) {
-                mGoodsList = mutableListOf()
+
+                mGoodsAdapter.setData(result)
+
+            }else {
+
+                mGoodsAdapter.addData(result)
+
             }
-
-            mGoodsList.addAll(result)
-
-            mGoodsAdapter.setData(mGoodsList)
-
 
             mMultiStateView.viewState = MultiStateView.VIEW_STATE_CONTENT
 

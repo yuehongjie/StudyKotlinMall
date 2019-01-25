@@ -76,8 +76,21 @@ fun Button.enable(editText: EditText, method: () -> Boolean) {
 
 }
 
+
+/**
+ * ImageView 加载图片
+ */
 fun ImageView.loadUrl(url: String) {
 
     GlideUtils.loadImage(context, url, this)
+
+}
+
+/**
+ * 扩展 View 是否可见
+ */
+fun View.setVisible(visible: Boolean) {
+
+    this.visibility = if (visible) View.VISIBLE else View.GONE
 
 }

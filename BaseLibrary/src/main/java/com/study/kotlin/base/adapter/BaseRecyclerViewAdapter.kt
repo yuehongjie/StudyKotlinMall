@@ -23,6 +23,14 @@ abstract class BaseRecyclerViewAdapter<T, VH : RecyclerView.ViewHolder>(var mCon
         notifyDataSetChanged()
     }
 
+    /**
+     * 添加更多的数据
+     */
+    fun addData(resource: MutableList<T>) {
+        dataList.addAll(resource)
+        notifyDataSetChanged()
+    }
+
     override fun onBindViewHolder(holder: VH, position: Int) {
         holder.itemView.setOnClickListener {
             if (mItemClickListener != null)

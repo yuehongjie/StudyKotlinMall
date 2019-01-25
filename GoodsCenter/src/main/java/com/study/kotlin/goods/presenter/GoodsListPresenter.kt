@@ -14,6 +14,9 @@ class GoodsListPresenter @Inject constructor(): BasePresenter<GoodsListView>() {
     @Inject
     lateinit var goodsService: GoodsService
 
+    /**
+     * 通过分类获取商品列表
+     */
     fun getGoodsList(categoryId: Int, pageNo: Int) {
 
         if (!isNetWorkAvailable()) {
@@ -31,6 +34,28 @@ class GoodsListPresenter @Inject constructor(): BasePresenter<GoodsListView>() {
                 }
 
             })
+
+    }
+
+    /**
+     * 通过关键字获取商品列表
+     */
+    fun getGoodsListByKeyword(keyword: String, pageNo: Int) {
+
+        if (!isNetWorkAvailable()) {
+            return
+        }
+
+        mView.showLoading()
+        goodsService.getGoodsListByKeyword(keyword, pageNo)
+            .execute((object: BaseSubscriber<MutableList<Goods>?>(mView) {
+
+                override fun onNext(result: MutableList<Goods>?) {
+
+                    mView.onGetGoodsListResult(result)
+
+                }
+            }))
 
     }
 
