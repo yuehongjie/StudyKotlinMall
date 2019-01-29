@@ -2,6 +2,9 @@ package com.study.kotlin.goods.data.common
 
 object GoodsConstant {
 
+    //商品 id
+    const val KEY_GOODS_ID = "goods_id"
+
     //商品分类 id
     const val KEY_CATEGORY_ID = "categoryId"
 

@@ -17,6 +17,7 @@ import com.study.kotlin.goods.presenter.GoodsListPresenter
 import com.study.kotlin.goods.presenter.view.GoodsListView
 import com.study.kotlin.goods.ui.adapter.GoodsAdapter
 import kotlinx.android.synthetic.main.activity_goods.*
+import org.jetbrains.anko.startActivity
 
 class GoodsListActivity: BaseMvpActivity<GoodsListPresenter>(), GoodsListView,
     BGARefreshLayout.BGARefreshLayoutDelegate {
@@ -40,11 +41,14 @@ class GoodsListActivity: BaseMvpActivity<GoodsListPresenter>(), GoodsListView,
     private fun initView() {
 
         mGoodsAdapter = GoodsAdapter(this)
-        mGoodsRv.layoutManager = GridLayoutManager(this, 2)
+        mGoodsRv.layoutManager = GridLayoutManager(this,2)
         mGoodsRv.adapter = mGoodsAdapter
         mGoodsAdapter.setOnItemClickListener(object: BaseRecyclerViewAdapter.OnItemClickListener<Goods> {
 
             override fun onItemClick(item: Goods, position: Int) {
+
+                startActivity<GoodsDetailActivity>(GoodsConstant.KEY_GOODS_ID to item.id)
+
             }
 
         })

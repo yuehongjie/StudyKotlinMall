@@ -2,14 +2,19 @@ package com.study.kotlin.mall.ui.activity
 
 
 import android.os.Bundle
+import android.util.Log
 import com.ashokvarma.bottomnavigation.BottomNavigationBar
 import com.study.kotlin.base.ui.activity.BaseActivity
 import com.study.kotlin.base.ui.fragment.BaseFragment
+import com.study.kotlin.goods.event.TestEvent
 import com.study.kotlin.goods.ui.fragment.CategoryFragment
 import com.study.kotlin.mall.R
 import com.study.kotlin.mall.ui.fragment.HomeFragment
 import com.study.kotlin.mall.ui.fragment.MeFragment
 import kotlinx.android.synthetic.main.activity_main.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 import rx.Observable
 import rx.android.schedulers.AndroidSchedulers
 import java.util.concurrent.TimeUnit
@@ -33,6 +38,8 @@ class MainActivity : BaseActivity() {
         initView()
         initBottomNavBar()
         switchFragment(mHomeFragment)
+
+        EventBus.getDefault().register(this)
     }
 
     private fun test() {
@@ -113,4 +120,16 @@ class MainActivity : BaseActivity() {
 
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onEvent(event: TestEvent) {
+
+        Log.e("MainActivity", "主界面收到测试事件")
+    }
+
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        EventBus.getDefault().unregister(this)
+    }
 }
