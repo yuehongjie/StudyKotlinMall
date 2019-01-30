@@ -2,17 +2,20 @@ package com.study.kotlin.goods.ui.fragment
 
 import android.os.Bundle
 import android.util.Log
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.kotlin.base.utils.YuanFenConverter
 import com.study.kotlin.base.ext.onClick
+import com.study.kotlin.base.ui.activity.BaseActivity
 import com.study.kotlin.base.ui.fragment.BaseFragment
 import com.study.kotlin.base.ui.fragment.BaseMvpFragment
 import com.study.kotlin.base.widgets.BannerImageLoader
 import com.study.kotlin.goods.R
 import com.study.kotlin.goods.data.common.GoodsConstant
 import com.study.kotlin.goods.data.protocol.Goods
+import com.study.kotlin.goods.event.GoodsDetailImageEvent
 import com.study.kotlin.goods.event.TestEvent
 import com.study.kotlin.goods.injection.component.DaggerGoodsComponent
 import com.study.kotlin.goods.presenter.GoodsDetailPresenter
@@ -62,14 +65,16 @@ class GoodsDetailTabOneFragment: BaseMvpFragment<GoodsDetailPresenter>(), GoodsD
         mGoodsDetailBanner.setIndicatorGravity(BannerConfig.RIGHT)
 
         mSkuView.onClick {
-            toast("显示sku弹窗")
+
+            mSkuPop.showAtLocation((mActivity as BaseActivity).rootContentView, Gravity.BOTTOM, 0,0)
+
         }
 
     }
 
     private fun initPop() {
 
-        mSkuPop = GoodsSkuPopView(activity!!)
+        mSkuPop = GoodsSkuPopView(mActivity)
 
     }
 
@@ -89,6 +94,9 @@ class GoodsDetailTabOneFragment: BaseMvpFragment<GoodsDetailPresenter>(), GoodsD
         mSkuSelectedTv.text = result.goodsDefaultSku
 
         setPopData(result)
+
+        //发送事件 给 详情页显示图片
+        EventBus.getDefault().post(GoodsDetailImageEvent(result.goodsDetailOne, result.goodsDetailTwo))
     }
 
     private fun setPopData(result: Goods) {

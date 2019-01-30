@@ -25,15 +25,13 @@ abstract class BaseMvpFragment<T: BasePresenter<*>> : BaseFragment(), BaseView {
     @Inject
     lateinit var mPresenter: T
 
-    lateinit var mActivity: Activity
+
 
     // 提供 Activity 的 Component
     lateinit var activityComponent: ActivityComponent
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        mActivity = activity as Activity
 
         initActivityInjection()
         injectComponent()

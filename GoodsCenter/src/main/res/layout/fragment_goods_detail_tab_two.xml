@@ -2,15 +2,16 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               style="@style/MatchMatch.Vertical">
     <ScrollView style="@style/MatchMatch">
-        <LinearLayout style="@style/MatchWrap.Vertical">
+        <LinearLayout style="@style/MatchWrap.Vertical"
+            android:id="@+id/mDetailImageRoot">
             <ImageView
                     android:id="@+id/mGoodsDetailOneIv"
                     style="@style/MatchWrap"
-                    android:scaleType="fitXY"/>
+                    android:adjustViewBounds="true"/>
             <ImageView
                     android:id="@+id/mGoodsDetailTwoIv"
                     style="@style/MatchWrap"
-                    android:scaleType="fitXY"/>
+                    android:adjustViewBounds="true"/>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

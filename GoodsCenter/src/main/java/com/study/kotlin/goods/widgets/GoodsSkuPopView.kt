@@ -40,7 +40,7 @@ class GoodsSkuPopView(context: Activity) : PopupWindow(context), View.OnClickLis
         this.isFocusable = true
         // 设置SelectPicPopupWindow弹出窗体动画效果
         this.animationStyle = R.style.AnimBottom
-        background.alpha = 150
+        this.background.alpha = 150
         // mMenuView添加OnTouchListener监听判断获取触屏位置如果在选择框外面则销毁弹出框
         mRootView.setOnTouchListener { _, event ->
 

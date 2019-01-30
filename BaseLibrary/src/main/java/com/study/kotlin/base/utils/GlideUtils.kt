@@ -22,9 +22,9 @@ object GlideUtils {
 
     fun loadImage(context: Context, url: String, imageView: ImageView) {
 
-        val options = RequestOptions().centerCrop()
+        //val options = RequestOptions().centerCrop()
 
-        Glide.with(context).load(url).apply(options).into(imageView)
+        Glide.with(context).load(url).into(imageView)
     }
 
     fun loadImageFitCenter(context: Context, url: String, imageView: ImageView) {
