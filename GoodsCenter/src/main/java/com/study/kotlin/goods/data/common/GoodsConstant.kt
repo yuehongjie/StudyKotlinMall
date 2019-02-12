@@ -23,5 +23,7 @@ object GoodsConstant {
     //商品列表搜索方式为分类搜索
     const val KEY_TYPE_SEARCH_CATEGORY = 2
 
+    const val SKU_SEPARATOR = ","
+
 
 }

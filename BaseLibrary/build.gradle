@@ -103,6 +103,9 @@ dependencies {
     //event bus
     api 'org.greenrobot:eventbus:3.1.1'
 
+    //Arouter
+    api"com.alibaba:arouter-api:$arouter_api_version"
+
 }
 
 

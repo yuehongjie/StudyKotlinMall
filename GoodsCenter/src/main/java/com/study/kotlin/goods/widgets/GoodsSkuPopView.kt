@@ -6,11 +6,12 @@ import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup.LayoutParams
-import android.widget.*
+import android.widget.PopupWindow
 import com.kotlin.base.utils.YuanFenConverter
 import com.study.kotlin.base.ext.loadUrl
 import com.study.kotlin.base.ext.onClick
 import com.study.kotlin.goods.R
+import com.study.kotlin.goods.data.common.GoodsConstant
 import com.study.kotlin.goods.data.protocol.GoodsSku
 import kotlinx.android.synthetic.main.layout_sku_pop.view.*
 
@@ -65,19 +66,6 @@ class GoodsSkuPopView(context: Activity) : PopupWindow(context), View.OnClickLis
         mRootView.mAddCartBtn.onClick(this)
 
         mRootView.mSkuCountBtn.setCurrentNumber(1)
-//        mRootView.mSkuCountBtn.getEditText().addTextChangedListener(
-//                object :DefaultTextWatcher(){
-//                    override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-//                        Bus.send(SkuChangedEvent())
-//                    }
-//                }
-//
-//        )
-
-//        mRootView.mAddCartBtn.onClick {
-//            Bus.send(AddCartEvent())
-//            dismiss()
-//        }
     }
 
     /*
@@ -120,15 +108,22 @@ class GoodsSkuPopView(context: Activity) : PopupWindow(context), View.OnClickLis
     fun getSelectSku(): String {
         var skuInfo = ""
         for (skuView in mSkuViewList) {
-            //skuInfo += skuView.getSkuInfo().split(GoodsConstant.SKU_SEPARATOR)[1] + GoodsConstant.SKU_SEPARATOR
+            skuInfo += skuView.getSkuInfo() + GoodsConstant.SKU_SEPARATOR
         }
-        return skuInfo.take(skuInfo.length - 1)//刪除最后一个分隔
+        return skuInfo.take(skuInfo.length - 1)//截取、刪除最后一个分隔
     }
 
     /*
         获取商品数量
      */
     fun getSelectCount() = mRootView.mSkuCountBtn.number
+
+    /**
+     * 检查是否所有 sku 项都选中了
+     */
+    fun isAllSkuSelected(): Boolean {
+        return mSkuViewList.all { it.hasSelectedSku() }
+    }
 
     override fun onClick(v: View) {
         when (v.id) {

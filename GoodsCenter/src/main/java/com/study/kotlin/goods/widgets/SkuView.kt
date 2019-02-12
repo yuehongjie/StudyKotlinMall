@@ -42,7 +42,14 @@ class SkuView @JvmOverloads constructor(context: Context, attrs: AttributeSet? =
         mSkuContentView.adapter.setSelectedList(0)
 
         mSkuContentView.setOnTagClickListener { _, _, _ ->
-            //Bus.send(SkuChangedEvent())
+
+            //如果没有选中的标签 需要提示
+            if (mSkuContentView.selectedList.isEmpty()) {
+                mWarnTv.text = "请选择${goodsSku.skuTitle}"
+            }else {
+                mWarnTv.text = ""
+            }
+
             true
         }
     }
@@ -50,8 +57,19 @@ class SkuView @JvmOverloads constructor(context: Context, attrs: AttributeSet? =
     /*
         获取选中的SKU
      */
-//    fun getSkuInfo(): String {
-//        return mSkuTitleTv.text.toString() + GoodsConstant.SKU_SEPARATOR +
-//                mGoodsSku.skuContent[mSkuContentView.selectedList.first()]
-//    }
+    fun getSkuInfo(): String {
+        return if (mSkuContentView.selectedList.isEmpty()) {
+            mWarnTv.text.toString()
+        }
+        else {
+            mGoodsSku.skuContent[mSkuContentView.selectedList.first()]
+        }
+    }
+
+    /**
+     * 是否有选中 sku
+     */
+    fun hasSelectedSku(): Boolean {
+        return mSkuContentView.selectedList.isNotEmpty()
+    }
 }

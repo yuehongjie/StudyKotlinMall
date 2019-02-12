@@ -1,22 +1,21 @@
 package com.study.kotlin.goods.ui.fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.ScaleAnimation
 import com.kotlin.base.utils.YuanFenConverter
 import com.study.kotlin.base.ext.onClick
 import com.study.kotlin.base.ui.activity.BaseActivity
-import com.study.kotlin.base.ui.fragment.BaseFragment
 import com.study.kotlin.base.ui.fragment.BaseMvpFragment
 import com.study.kotlin.base.widgets.BannerImageLoader
 import com.study.kotlin.goods.R
 import com.study.kotlin.goods.data.common.GoodsConstant
 import com.study.kotlin.goods.data.protocol.Goods
 import com.study.kotlin.goods.event.GoodsDetailImageEvent
-import com.study.kotlin.goods.event.TestEvent
 import com.study.kotlin.goods.injection.component.DaggerGoodsComponent
 import com.study.kotlin.goods.presenter.GoodsDetailPresenter
 import com.study.kotlin.goods.presenter.view.GoodsDetailView
@@ -25,12 +24,13 @@ import com.youth.banner.BannerConfig
 import com.youth.banner.Transformer
 import kotlinx.android.synthetic.main.fragment_goods_detail_tab_one.*
 import org.greenrobot.eventbus.EventBus
-import org.jetbrains.anko.support.v4.toast
 
 class GoodsDetailTabOneFragment: BaseMvpFragment<GoodsDetailPresenter>(), GoodsDetailView {
 
 
     private lateinit var mSkuPop: GoodsSkuPopView
+    private lateinit var mAnimationStart: ScaleAnimation
+    private lateinit var mAnimationEnd: ScaleAnimation
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
@@ -43,6 +43,7 @@ class GoodsDetailTabOneFragment: BaseMvpFragment<GoodsDetailPresenter>(), GoodsD
         super.onViewCreated(view, savedInstanceState)
 
         initView()
+        initAnim()
         initPop()
         loadData()
     }
@@ -68,6 +69,11 @@ class GoodsDetailTabOneFragment: BaseMvpFragment<GoodsDetailPresenter>(), GoodsD
 
             mSkuPop.showAtLocation((mActivity as BaseActivity).rootContentView, Gravity.BOTTOM, 0,0)
 
+            //整个页面的背景缩放动画
+            (mActivity as BaseActivity).rootContentView.startAnimation(mAnimationStart)
+
+            mGoodsDetailBanner.stopAutoPlay() //否则布局缩放后 还自动播放的话 图片会有闪动
+
         }
 
     }
@@ -75,6 +81,14 @@ class GoodsDetailTabOneFragment: BaseMvpFragment<GoodsDetailPresenter>(), GoodsD
     private fun initPop() {
 
         mSkuPop = GoodsSkuPopView(mActivity)
+        mSkuPop.setOnDismissListener {
+            mSkuSelectedTv.text = mSkuPop.getSelectSku() + GoodsConstant.SKU_SEPARATOR + mSkuPop.getSelectCount()
+
+            //整个页面的背景缩放动画
+            (mActivity as BaseActivity).rootContentView.startAnimation(mAnimationEnd)
+
+            mGoodsDetailBanner.startAutoPlay()
+        }
 
     }
 
@@ -107,6 +121,21 @@ class GoodsDetailTabOneFragment: BaseMvpFragment<GoodsDetailPresenter>(), GoodsD
 
         mSkuPop.setSkuData(result.goodsSku)
 
+    }
+
+    /*
+     初始化缩放动画
+    */
+    private fun initAnim() {
+        mAnimationStart = ScaleAnimation(
+            1f, 0.95f, 1f, 0.95f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f)
+        mAnimationStart.duration = 500
+        mAnimationStart.fillAfter = true
+
+        mAnimationEnd = ScaleAnimation(
+            0.95f, 1f, 0.95f, 1f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f)
+        mAnimationEnd.duration = 500
+        mAnimationEnd.fillAfter = true
     }
 
     override fun onDestroyView() {
