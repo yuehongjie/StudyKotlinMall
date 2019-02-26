@@ -1,22 +1,28 @@
 package com.study.kotlin.goods.ui.activity
 
 import android.os.Bundle
-import android.util.Log
+import android.view.Gravity
 import android.view.View
-import com.alibaba.android.arouter.launcher.ARouter
 import com.google.android.material.tabs.TabLayout
 import com.study.kotlin.base.ext.onClick
 import com.study.kotlin.base.ui.activity.BaseActivity
+import com.study.kotlin.base.utils.AppPrefsUtils
 import com.study.kotlin.goods.R
-import com.study.kotlin.goods.event.TestEvent
+import com.study.kotlin.goods.data.common.GoodsConstant
+import com.study.kotlin.goods.event.AddCartEvent
+import com.study.kotlin.goods.event.UpdateCartSizeEvent
 import com.study.kotlin.goods.ui.adapter.GoodsDetailVpAdapter
-import com.study.kotlin.provider.router.RouterPath
+import com.study.kotlin.provider.common.afterLogin
 import kotlinx.android.synthetic.main.activity_goods_detail.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
+import q.rorbin.badgeview.QBadgeView
 
 class GoodsDetailActivity : BaseActivity(), View.OnClickListener {
+
+    private lateinit var mCartBadgeView: QBadgeView
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,6 +32,8 @@ class GoodsDetailActivity : BaseActivity(), View.OnClickListener {
         initView()
 
         EventBus.getDefault().register(this)
+
+        loadData()
 
     }
 
@@ -37,13 +45,29 @@ class GoodsDetailActivity : BaseActivity(), View.OnClickListener {
 
         mAddCartBtn.onClick(this)
 
+        mCartBadgeView = QBadgeView(this)
+
     }
 
+    private fun loadData() {
+        setCartCount()
+    }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onEvent(event: TestEvent) {
+    fun onEvent(event: UpdateCartSizeEvent) {
 
-        Log.e("GoodsDetailActivity", "收到测试事件")
+        setCartCount()
+
+    }
+
+    private fun setCartCount() {
+
+        mCartBadgeView.badgeGravity = Gravity.END or Gravity.TOP
+        mCartBadgeView.setGravityOffset(20f, -2f, true)
+        mCartBadgeView.setBadgeTextSize(10f, true)
+        mCartBadgeView.bindTarget(mEnterCartTv)
+        mCartBadgeView.badgeNumber = AppPrefsUtils.getInt(GoodsConstant.SP_CART_COUNT)
+
     }
 
     override fun onClick(v: View) {
@@ -52,8 +76,10 @@ class GoodsDetailActivity : BaseActivity(), View.OnClickListener {
 
             R.id.mAddCartBtn -> {
 
-                //使用 Arouter 跨模块跳转
-                ARouter.getInstance().build(RouterPath.UserCenter.PATH_LOGIN).navigation()
+                afterLogin {
+                    //添加购物车的逻辑在 GoodsDetailTabOneFragment 中
+                    EventBus.getDefault().post(AddCartEvent())
+                }
 
             }
 

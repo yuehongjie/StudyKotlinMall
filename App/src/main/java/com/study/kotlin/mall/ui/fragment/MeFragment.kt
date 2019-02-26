@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.kotlin.user.utils.UserPrefsUtils
+import com.study.kotlin.user.utils.UserPrefsUtils
 import com.study.kotlin.base.ext.onClick
 import com.study.kotlin.base.ui.fragment.BaseFragment
 import com.study.kotlin.base.utils.GlideUtils

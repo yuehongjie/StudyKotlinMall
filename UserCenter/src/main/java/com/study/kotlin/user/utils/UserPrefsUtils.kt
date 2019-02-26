@@ -1,6 +1,6 @@
-package com.kotlin.user.utils
+package com.study.kotlin.user.utils
 
-import com.kotlin.provider.common.ProviderConstant
+import com.study.kotlin.provider.common.ProviderConstant
 import com.study.kotlin.base.common.BaseConstant
 import com.study.kotlin.base.utils.AppPrefsUtils
 import com.study.kotlin.user.data.protocol.UserInfo
@@ -23,7 +23,7 @@ object UserPrefsUtils {
     }
 
     fun getUserToken(): String {
-        return AppPrefsUtils.getString(ProviderConstant.KEY_SP_USER_ICON)
+        return AppPrefsUtils.getString(BaseConstant.KEY_SP_TOKEN)
     }
 
     fun getUserName(): String {

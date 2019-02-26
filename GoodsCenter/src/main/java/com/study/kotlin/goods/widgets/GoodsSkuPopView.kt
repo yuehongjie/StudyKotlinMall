@@ -13,7 +13,10 @@ import com.study.kotlin.base.ext.onClick
 import com.study.kotlin.goods.R
 import com.study.kotlin.goods.data.common.GoodsConstant
 import com.study.kotlin.goods.data.protocol.GoodsSku
+import com.study.kotlin.goods.event.AddCartEvent
 import kotlinx.android.synthetic.main.layout_sku_pop.view.*
+import org.greenrobot.eventbus.EventBus
+import org.jetbrains.anko.toast
 
 /*
     商品SKU弹层
@@ -129,6 +132,15 @@ class GoodsSkuPopView(context: Activity) : PopupWindow(context), View.OnClickLis
         when (v.id) {
             R.id.mCloseIv -> dismiss()
             R.id.mAddCartBtn -> {
+
+                if (!isAllSkuSelected()) {
+                    mContext.toast("请选择商品型号")
+                    return
+                }
+
+                //添加购物车的逻辑在 GoodsDetailTabOneFragment 中
+                EventBus.getDefault().post(AddCartEvent())
+
                 dismiss()
             }
         }

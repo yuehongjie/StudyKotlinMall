@@ -11,11 +11,14 @@ import com.kotlin.base.utils.YuanFenConverter
 import com.study.kotlin.base.ext.onClick
 import com.study.kotlin.base.ui.activity.BaseActivity
 import com.study.kotlin.base.ui.fragment.BaseMvpFragment
+import com.study.kotlin.base.utils.AppPrefsUtils
 import com.study.kotlin.base.widgets.BannerImageLoader
 import com.study.kotlin.goods.R
 import com.study.kotlin.goods.data.common.GoodsConstant
 import com.study.kotlin.goods.data.protocol.Goods
+import com.study.kotlin.goods.event.AddCartEvent
 import com.study.kotlin.goods.event.GoodsDetailImageEvent
+import com.study.kotlin.goods.event.UpdateCartSizeEvent
 import com.study.kotlin.goods.injection.component.DaggerGoodsComponent
 import com.study.kotlin.goods.presenter.GoodsDetailPresenter
 import com.study.kotlin.goods.presenter.view.GoodsDetailView
@@ -24,6 +27,9 @@ import com.youth.banner.BannerConfig
 import com.youth.banner.Transformer
 import kotlinx.android.synthetic.main.fragment_goods_detail_tab_one.*
 import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.jetbrains.anko.support.v4.toast
+import q.rorbin.badgeview.QBadgeView
 
 class GoodsDetailTabOneFragment: BaseMvpFragment<GoodsDetailPresenter>(), GoodsDetailView {
 
@@ -31,6 +37,7 @@ class GoodsDetailTabOneFragment: BaseMvpFragment<GoodsDetailPresenter>(), GoodsD
     private lateinit var mSkuPop: GoodsSkuPopView
     private lateinit var mAnimationStart: ScaleAnimation
     private lateinit var mAnimationEnd: ScaleAnimation
+    private lateinit var mCurrGoods: Goods
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
@@ -41,6 +48,8 @@ class GoodsDetailTabOneFragment: BaseMvpFragment<GoodsDetailPresenter>(), GoodsD
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        EventBus.getDefault().register(this)
 
         initView()
         initAnim()
@@ -100,6 +109,8 @@ class GoodsDetailTabOneFragment: BaseMvpFragment<GoodsDetailPresenter>(), GoodsD
 
     override fun onGetGoodsDetailResult(result: Goods) {
 
+        mCurrGoods = result
+
         mGoodsDetailBanner.setImages(result.goodsBanner.split(","))
         mGoodsDetailBanner.start()
 
@@ -138,10 +149,51 @@ class GoodsDetailTabOneFragment: BaseMvpFragment<GoodsDetailPresenter>(), GoodsD
         mAnimationEnd.fillAfter = true
     }
 
+
+    @Subscribe
+    fun onEvent(event: AddCartEvent) {
+        addCart()
+    }
+
+
+    /**
+     * 添加购物车的请求
+     */
+    private fun addCart() {
+
+        if (!mSkuPop.isAllSkuSelected()) {
+            toast("请选择商品型号")
+            return
+        }
+
+        mCurrGoods.let {
+            mPresenter.addCart(it.id,
+                it.goodsDesc,
+                it.goodsDefaultIcon,
+                it.goodsDefaultPrice,
+                mSkuPop.getSelectCount(),
+                mSkuPop.getSelectSku())
+        }
+
+    }
+
+    override fun onAddCartResult(result: Int) {
+
+        //存储购物车商品数量
+        AppPrefsUtils.putInt(GoodsConstant.SP_CART_COUNT, result)
+
+        //发送购物车商品数量变化事件
+        EventBus.getDefault().post(UpdateCartSizeEvent())
+
+        toast("添加购物车成功")
+
+    }
+
+
     override fun onDestroyView() {
         super.onDestroyView()
 
-
+        EventBus.getDefault().unregister(this)
 
     }
 

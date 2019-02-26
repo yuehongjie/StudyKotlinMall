@@ -6,7 +6,10 @@ import android.util.Log
 import com.ashokvarma.bottomnavigation.BottomNavigationBar
 import com.study.kotlin.base.ui.activity.BaseActivity
 import com.study.kotlin.base.ui.fragment.BaseFragment
+import com.study.kotlin.base.utils.AppPrefsUtils
+import com.study.kotlin.goods.data.common.GoodsConstant
 import com.study.kotlin.goods.event.TestEvent
+import com.study.kotlin.goods.event.UpdateCartSizeEvent
 import com.study.kotlin.goods.ui.fragment.CategoryFragment
 import com.study.kotlin.mall.R
 import com.study.kotlin.mall.ui.fragment.HomeFragment
@@ -15,6 +18,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
+import org.jetbrains.anko.toast
 import rx.Observable
 import rx.android.schedulers.AndroidSchedulers
 import java.util.concurrent.TimeUnit
@@ -35,30 +39,20 @@ class MainActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        initView()
         initBottomNavBar()
         switchFragment(mHomeFragment)
+        loadData()
 
         EventBus.getDefault().register(this)
     }
 
-    private fun test() {
+    private fun loadData() {
 
-        //2秒后，测试显示购物车、消息
+        //2秒后，显示购物车、消息 ,不知道为啥一进来就设置的话没有效果
         Observable.timer(2, TimeUnit.SECONDS)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe{
-                mBottomNavBar.checkCarBadgeCount(20)
-                mBottomNavBar.checkMsgBadgeVisible(true)
-            }
-
-
-        //5秒后，测试隐藏购物车、消息
-        Observable.timer(5, TimeUnit.SECONDS)
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe{
-                mBottomNavBar.checkCarBadgeCount(0)
-                mBottomNavBar.checkMsgBadgeVisible(false)
+                setCartSize()
             }
 
     }
@@ -121,10 +115,18 @@ class MainActivity : BaseActivity() {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onEvent(event: TestEvent) {
+    fun onEvent(event: UpdateCartSizeEvent) {
 
-        Log.e("MainActivity", "主界面收到测试事件")
+        setCartSize()
     }
+
+    private fun setCartSize() {
+
+        mBottomNavBar.checkCarBadgeCount(AppPrefsUtils.getInt(GoodsConstant.SP_CART_COUNT))
+        toast("购物车数量：${AppPrefsUtils.getInt(GoodsConstant.SP_CART_COUNT)}")
+    }
+
+
 
 
     override fun onDestroy() {

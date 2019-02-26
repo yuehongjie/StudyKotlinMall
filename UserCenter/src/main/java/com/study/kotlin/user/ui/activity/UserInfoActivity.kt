@@ -17,7 +17,7 @@ import com.jph.takephoto.permission.InvokeListener
 import com.jph.takephoto.permission.PermissionManager
 import com.jph.takephoto.permission.PermissionManager.TPermissionType
 import com.jph.takephoto.permission.TakePhotoInvocationHandler
-import com.kotlin.user.utils.UserPrefsUtils
+import com.study.kotlin.user.utils.UserPrefsUtils
 import com.study.kotlin.base.ext.onClick
 import com.study.kotlin.base.ui.activity.BaseMvpActivity
 import com.study.kotlin.base.utils.DateUtils

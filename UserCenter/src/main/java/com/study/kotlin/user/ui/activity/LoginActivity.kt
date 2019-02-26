@@ -3,7 +3,7 @@ package com.study.kotlin.user.ui.activity
 import android.os.Bundle
 import android.view.View
 import com.alibaba.android.arouter.facade.annotation.Route
-import com.kotlin.user.utils.UserPrefsUtils
+import com.study.kotlin.user.utils.UserPrefsUtils
 import com.study.kotlin.base.ext.enable
 import com.study.kotlin.base.ui.activity.BaseMvpActivity
 import com.study.kotlin.provider.router.RouterPath

@@ -1,4 +1,4 @@
-package com.kotlin.provider.common
+package com.study.kotlin.provider.common
 
 import com.study.kotlin.base.common.BaseConstant
 

@@ -23,7 +23,11 @@ object GoodsConstant {
     //商品列表搜索方式为分类搜索
     const val KEY_TYPE_SEARCH_CATEGORY = 2
 
+    //sku 分隔符
     const val SKU_SEPARATOR = ","
+
+    //购物车商品数量
+    const val SP_CART_COUNT = "cart_count"
 
 
 }

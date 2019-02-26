@@ -2,7 +2,7 @@ package com.study.kotlin.mall.ui.activity
 
 import android.os.Bundle
 import android.view.View
-import com.kotlin.user.utils.UserPrefsUtils
+import com.study.kotlin.user.utils.UserPrefsUtils
 import com.study.kotlin.base.ext.onClick
 import com.study.kotlin.base.ui.activity.BaseActivity
 import com.study.kotlin.mall.R
