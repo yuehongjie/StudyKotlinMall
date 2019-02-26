@@ -14,6 +14,7 @@
             android:id="@+id/mTopicIv"
             android:layout_width="300dp"
             android:layout_height="180dp"
+            android:scaleType="fitXY"
             app:riv_corner_radius_top_left="@dimen/common_radius"
             app:riv_corner_radius_top_right="@dimen/common_radius"
             app:riv_mutate_background="true"/>

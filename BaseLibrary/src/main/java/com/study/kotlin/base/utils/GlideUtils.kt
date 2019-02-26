@@ -13,7 +13,7 @@ import com.study.kotlin.base.R
 object GlideUtils {
 
 
-    fun loadImage(context: Context, url: String, placeholder: Int, imageView: ImageView) {
+    fun loadImageCenterCrop(context: Context, url: String, placeholder: Int, imageView: ImageView) {
 
         val options = RequestOptions().centerCrop().placeholder(placeholder)
 

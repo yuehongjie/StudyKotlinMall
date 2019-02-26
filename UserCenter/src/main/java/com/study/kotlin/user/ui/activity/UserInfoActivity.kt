@@ -71,7 +71,7 @@ class UserInfoActivity : BaseMvpActivity<UserInfoPresenter>(), UserInfoView, Tak
 
         //头像
         val localSavedIcon = UserPrefsUtils.getLocalSavedIcon()
-        GlideUtils.loadImage(this, localSavedIcon, R.drawable.icon_default_user, mUserIconIv)
+        GlideUtils.loadImageCenterCrop(this, localSavedIcon, R.drawable.icon_default_user, mUserIconIv)
 
         //昵称
         mUserNameEt.setText(UserPrefsUtils.getUserName())

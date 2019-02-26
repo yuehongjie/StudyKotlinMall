@@ -123,7 +123,7 @@ class MainActivity : BaseActivity() {
     private fun setCartSize() {
 
         mBottomNavBar.checkCarBadgeCount(AppPrefsUtils.getInt(GoodsConstant.SP_CART_COUNT))
-        toast("购物车数量：${AppPrefsUtils.getInt(GoodsConstant.SP_CART_COUNT)}")
+        
     }
 
 

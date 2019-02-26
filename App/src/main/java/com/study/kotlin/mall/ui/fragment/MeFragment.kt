@@ -54,7 +54,7 @@ class MeFragment: BaseFragment(), View.OnClickListener {
         }else {
 
             val localSavedIcon = UserPrefsUtils.getLocalSavedIcon()
-            GlideUtils.loadImage(context!!, localSavedIcon, R.drawable.icon_default_user, mUserIconIv)
+            GlideUtils.loadImageCenterCrop(context!!, localSavedIcon, R.drawable.icon_default_user, mUserIconIv)
             mUserNameTv.text = UserPrefsUtils.getUserName()
 
         }
