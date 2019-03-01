@@ -3,6 +3,7 @@ package com.study.kotlin.goods.service
 import com.study.kotlin.base.data.net.RetrofitFactory
 import com.study.kotlin.base.ext.convert
 import com.study.kotlin.goods.data.api.CartApi
+import com.study.kotlin.goods.data.protocol.CartGoods
 import com.study.kotlin.goods.data.req.AddCartReq
 import rx.Observable
 
@@ -16,6 +17,14 @@ class CartService {
 
         return RetrofitFactory.instance.create(CartApi::class.java)
             .addCart(AddCartReq(goodsId, goodsDesc, goodsIcon, goodsPrice, goodsCount, goodsSku))
+            .convert()
+
+    }
+
+    fun getCartList(): Observable<MutableList<CartGoods>?> {
+
+        return RetrofitFactory.instance.create(CartApi::class.java)
+            .getCartList()
             .convert()
 
     }

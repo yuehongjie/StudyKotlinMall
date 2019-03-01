@@ -28,8 +28,7 @@ import com.youth.banner.Transformer
 import kotlinx.android.synthetic.main.fragment_goods_detail_tab_one.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
-import org.jetbrains.anko.support.v4.toast
-import q.rorbin.badgeview.QBadgeView
+import org.jetbrains.anko.toast
 
 class GoodsDetailTabOneFragment: BaseMvpFragment<GoodsDetailPresenter>(), GoodsDetailView {
 
@@ -162,7 +161,7 @@ class GoodsDetailTabOneFragment: BaseMvpFragment<GoodsDetailPresenter>(), GoodsD
     private fun addCart() {
 
         if (!mSkuPop.isAllSkuSelected()) {
-            toast("请选择商品型号")
+            mActivity.toast("请选择商品型号")
             return
         }
 
@@ -185,7 +184,7 @@ class GoodsDetailTabOneFragment: BaseMvpFragment<GoodsDetailPresenter>(), GoodsD
         //发送购物车商品数量变化事件
         EventBus.getDefault().post(UpdateCartSizeEvent())
 
-        toast("添加购物车成功")
+        mActivity.toast("添加购物车成功")
 
     }
 

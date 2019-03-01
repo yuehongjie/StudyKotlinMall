@@ -61,8 +61,6 @@ class GoodsDetailPresenter @Inject constructor(): BasePresenter<GoodsDetailView>
 
             })
 
-
-
     }
 
 }

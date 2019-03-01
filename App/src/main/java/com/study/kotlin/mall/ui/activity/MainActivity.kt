@@ -2,14 +2,13 @@ package com.study.kotlin.mall.ui.activity
 
 
 import android.os.Bundle
-import android.util.Log
 import com.ashokvarma.bottomnavigation.BottomNavigationBar
 import com.study.kotlin.base.ui.activity.BaseActivity
 import com.study.kotlin.base.ui.fragment.BaseFragment
 import com.study.kotlin.base.utils.AppPrefsUtils
 import com.study.kotlin.goods.data.common.GoodsConstant
-import com.study.kotlin.goods.event.TestEvent
 import com.study.kotlin.goods.event.UpdateCartSizeEvent
+import com.study.kotlin.goods.ui.fragment.CartListFragment
 import com.study.kotlin.goods.ui.fragment.CategoryFragment
 import com.study.kotlin.mall.R
 import com.study.kotlin.mall.ui.fragment.HomeFragment
@@ -18,7 +17,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
-import org.jetbrains.anko.toast
 import rx.Observable
 import rx.android.schedulers.AndroidSchedulers
 import java.util.concurrent.TimeUnit
@@ -28,7 +26,7 @@ class MainActivity : BaseActivity() {
     //懒加载 Fragment
     private val mHomeFragment:HomeFragment by lazy { HomeFragment() }   //首页
     private val mCateFragment: CategoryFragment by lazy { CategoryFragment() }   //分类
-    private val mCarFragment:HomeFragment by lazy { HomeFragment() }    //购物车
+    private val mCarFragment:CartListFragment by lazy { CartListFragment()}    //购物车
     private val mMsgFragment:HomeFragment by lazy { HomeFragment() }    //消息
     private val mMeFragment:MeFragment by lazy { MeFragment() }         //我
 
@@ -49,7 +47,7 @@ class MainActivity : BaseActivity() {
     private fun loadData() {
 
         //2秒后，显示购物车、消息 ,不知道为啥一进来就设置的话没有效果
-        Observable.timer(2, TimeUnit.SECONDS)
+        Observable.timer(1, TimeUnit.SECONDS)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe{
                 setCartSize()

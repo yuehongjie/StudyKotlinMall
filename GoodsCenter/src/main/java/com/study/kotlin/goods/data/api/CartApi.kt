@@ -1,6 +1,7 @@
 package com.study.kotlin.goods.data.api
 
 import com.study.kotlin.base.data.protocol.BaseResp
+import com.study.kotlin.goods.data.protocol.CartGoods
 import com.study.kotlin.goods.data.req.AddCartReq
 import retrofit2.http.Body
 import retrofit2.http.POST
@@ -13,8 +14,8 @@ interface CartApi {
     /*
         获取购物车列表
      */
-//    @POST("cart/getList")
-//    fun getCartList(): Observable<BaseResp<MutableList<CartGoods>?>>
+    @POST("cart/getList")
+    fun getCartList(): Observable<BaseResp<MutableList<CartGoods>?>>
 
     /*
         添加商品到购物车
