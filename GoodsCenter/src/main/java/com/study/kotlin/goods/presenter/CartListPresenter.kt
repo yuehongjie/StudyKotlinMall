@@ -34,4 +34,36 @@ class CartListPresenter @Inject constructor() : BasePresenter<CartListView>() {
 
     }
 
+    fun deleteCartList(cartIdList: List<Int>) {
+        if (!isNetWorkAvailable()) {
+            return
+        }
+
+        mView.showLoading()
+
+        service.deleteCartList(cartIdList)
+            .execute(object : BaseSubscriber<Boolean>(mView) {
+                override fun onNext(result: Boolean) {
+                    mView.onDeleteCartListResult(result)
+                }
+            })
+    }
+
+    fun submitCart(goodsList: List<CartGoods>, totalPrice: Long) {
+        if (!isNetWorkAvailable()) {
+            return
+        }
+
+        mView.showLoading()
+
+        service.submitCart(goodsList, totalPrice)
+            .execute(object : BaseSubscriber<Int>(mView) {
+
+                override fun onNext(result: Int) {
+                    mView.onSubmitCartResult(result)
+                }
+
+            })
+    }
+
 }

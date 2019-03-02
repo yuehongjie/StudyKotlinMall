@@ -17,6 +17,7 @@ import kotlinx.android.synthetic.main.activity_goods_detail.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
+import org.jetbrains.anko.startActivity
 import q.rorbin.badgeview.QBadgeView
 
 class GoodsDetailActivity : BaseActivity(), View.OnClickListener {
@@ -44,6 +45,10 @@ class GoodsDetailActivity : BaseActivity(), View.OnClickListener {
         mGoodsDetailTab.setupWithViewPager(mGoodsDetailVp)
 
         mAddCartBtn.onClick(this)
+        mLeftIv.onClick { finish() }
+        mEnterCartTv.onClick {
+            startActivity<CartListActivity>()
+        }
 
         mCartBadgeView = QBadgeView(this)
 

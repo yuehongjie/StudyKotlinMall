@@ -3,6 +3,8 @@ package com.study.kotlin.goods.data.api
 import com.study.kotlin.base.data.protocol.BaseResp
 import com.study.kotlin.goods.data.protocol.CartGoods
 import com.study.kotlin.goods.data.req.AddCartReq
+import com.study.kotlin.goods.data.req.DeleteCartReq
+import com.study.kotlin.goods.data.req.SubmitCartReq
 import retrofit2.http.Body
 import retrofit2.http.POST
 import rx.Observable
@@ -26,12 +28,13 @@ interface CartApi {
     /*
         删除购物车商品
      */
-//    @POST("cart/delete")
-//    fun deleteCartList(@Body req: DeleteCartReq): Observable<BaseResp<String>>
+    @POST("cart/delete")
+    fun deleteCartList(@Body req: DeleteCartReq): Observable<BaseResp<String>>
 
     /*
         提交购物车商品
+        返回预支付订单号
      */
-//    @POST("cart/submit")
-//    fun submitCart(@Body req: SubmitCartReq): Observable<BaseResp<Int>>
+    @POST("cart/submit")
+    fun submitCart(@Body req: SubmitCartReq): Observable<BaseResp<Int>>
 }
