@@ -4,15 +4,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.study.kotlin.user.utils.UserPrefsUtils
 import com.study.kotlin.base.ext.onClick
 import com.study.kotlin.base.ui.fragment.BaseFragment
 import com.study.kotlin.base.utils.GlideUtils
 import com.study.kotlin.mall.R
 import com.study.kotlin.mall.ui.activity.SettingActivity
+import com.study.kotlin.order.ui.activity.ShipAddressActivity
+import com.study.kotlin.provider.common.afterLogin
 import com.study.kotlin.provider.common.isLogin
 import com.study.kotlin.user.ui.activity.LoginActivity
 import com.study.kotlin.user.ui.activity.UserInfoActivity
+import com.study.kotlin.user.utils.UserPrefsUtils
 import kotlinx.android.synthetic.main.fragment_me.*
 import org.jetbrains.anko.startActivity
 
@@ -40,6 +42,7 @@ class MeFragment: BaseFragment(), View.OnClickListener {
         mUserIconIv.onClick(this)
         mUserNameTv.onClick(this)
         mSettingTv.onClick (this)
+        mAddressTv.onClick(this)
 
     }
 
@@ -73,8 +76,13 @@ class MeFragment: BaseFragment(), View.OnClickListener {
             }
 
             R.id.mSettingTv -> {
-
                 activity?.startActivity<SettingActivity>()
+            }
+
+            R.id.mAddressTv -> {
+                afterLogin {
+                    activity?.startActivity<ShipAddressActivity>()
+                }
 
             }
         }

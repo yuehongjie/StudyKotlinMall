@@ -21,6 +21,8 @@ open  class BaseSubscriber<T>(private val mBaseView: BaseView): Subscriber<T>() 
         //如果是自定义的异常 提示错误信息
         if (e is BaseException) {
             mBaseView.onError(e.msg)
+        }else {
+            mBaseView.onError("")
         }
     }
 

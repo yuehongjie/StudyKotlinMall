@@ -7,7 +7,15 @@ object RouterPath {
     class UserCenter{
         companion object {
             /** 登录 */
-            const val PATH_LOGIN = "/userCenter/login"
+            const val PATH_LOGIN = "/userCenter/login"  // 路径至少要有两级 且以 / 开始
+        }
+    }
+
+    //订单中心
+    class OrderCenter{
+        companion object {
+            /** 订单确认页 */
+            const val PATH_ORDER_CONFIRM = "/orderCenter/orderConfirm"
         }
     }
 

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="com.study.kotlin.order">
+
+    <application>
+        <activity android:name=".ui.activity.OrderConfirmActivity"/>
+        <activity android:name=".ui.activity.ShipAddressActivity">
+        </activity>
+        <activity android:name=".ui.activity.ShipAddressEditActivity">
+        </activity>
+    </application>
+
+</manifest>

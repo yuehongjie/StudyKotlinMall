@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.alibaba.android.arouter.launcher.ARouter
 import com.kennyc.view.MultiStateView
 import com.kotlin.base.utils.YuanFenConverter
 import com.study.kotlin.base.ext.onClick
@@ -21,6 +22,8 @@ import com.study.kotlin.goods.injection.component.DaggerCartComponent
 import com.study.kotlin.goods.presenter.CartListPresenter
 import com.study.kotlin.goods.presenter.view.CartListView
 import com.study.kotlin.goods.ui.adapter.CartGoodsAdapter
+import com.study.kotlin.provider.common.ProviderConstant
+import com.study.kotlin.provider.router.RouterPath
 import kotlinx.android.synthetic.main.fragment_cart.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -108,7 +111,11 @@ class CartListFragment: BaseMvpFragment<CartListPresenter>(), CartListView {
     }
 
     override fun onSubmitCartResult(result: Int) {
-        mActivity.toast("订单 Id: $result")
+        //mActivity.toast("订单 Id: $result")
+        ARouter.getInstance()
+            .build(RouterPath.OrderCenter.PATH_ORDER_CONFIRM)
+            .withInt(ProviderConstant.KEY_ORDER_ID, result)  //传递订单 id
+            .navigation()
     }
 
     private fun deleteCartList(){

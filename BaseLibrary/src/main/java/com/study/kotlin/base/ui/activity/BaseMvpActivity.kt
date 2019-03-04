@@ -1,6 +1,7 @@
 package com.study.kotlin.base.ui.activity
 
 import android.os.Bundle
+import android.text.TextUtils
 import com.study.kotlin.base.common.BaseApplication
 import com.study.kotlin.base.injection.component.ActivityComponent
 import com.study.kotlin.base.injection.component.DaggerActivityComponent
@@ -68,7 +69,7 @@ abstract class BaseMvpActivity<T: BasePresenter<*>> : BaseActivity(), BaseView {
     }
 
     override fun onError(msg: String) {
-        toast(msg)
+        if(!TextUtils.isEmpty(msg)){ toast(msg) }
     }
 
 

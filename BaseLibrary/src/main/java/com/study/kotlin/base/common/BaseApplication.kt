@@ -1,6 +1,8 @@
 package com.study.kotlin.base.common
 
 import android.app.Application
+import android.content.Context
+import androidx.multidex.MultiDex
 import com.alibaba.android.arouter.launcher.ARouter
 import com.study.kotlin.base.injection.component.AppComponent
 import com.study.kotlin.base.injection.component.DaggerAppComponent
@@ -23,6 +25,11 @@ class BaseApplication : Application() {
 
     }
 
+
+    override fun attachBaseContext(base: Context?) {
+        super.attachBaseContext(base)
+        MultiDex.install(this)
+    }
     private fun initAppInjection() {
 
         appComponent = DaggerAppComponent.builder().appModule(AppModule(this)).build()
