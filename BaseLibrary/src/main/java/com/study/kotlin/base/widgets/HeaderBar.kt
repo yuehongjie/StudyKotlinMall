@@ -68,4 +68,8 @@ class HeaderBar @JvmOverloads constructor(
         return mLeftIv
     }
 
+    fun setTitle(title: String) {
+        mTitleTv.text = title
+    }
+
 }

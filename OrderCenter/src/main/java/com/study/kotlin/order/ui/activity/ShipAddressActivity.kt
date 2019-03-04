@@ -5,15 +5,19 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bigkoo.alertview.AlertView
 import com.bigkoo.alertview.OnItemClickListener
 import com.kennyc.view.MultiStateView
+import com.study.kotlin.base.adapter.BaseRecyclerViewAdapter
 import com.study.kotlin.base.ext.onClick
 import com.study.kotlin.base.ui.activity.BaseMvpActivity
 import com.study.kotlin.order.R
+import com.study.kotlin.order.data.common.OrderConstant
 import com.study.kotlin.order.data.protocol.ShipAddress
+import com.study.kotlin.order.event.SelectAddressEvent
 import com.study.kotlin.order.injection.component.DaggerShipAddressComponent
 import com.study.kotlin.order.presenter.ShipAddressPresenter
 import com.study.kotlin.order.presenter.view.ShipAddressView
 import com.study.kotlin.order.ui.adapter.ShipAddressAdapter
 import kotlinx.android.synthetic.main.activity_ship_adress.*
+import org.greenrobot.eventbus.EventBus
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
 
@@ -30,6 +34,11 @@ class ShipAddressActivity : BaseMvpActivity<ShipAddressPresenter>(), ShipAddress
         setContentView(R.layout.activity_ship_adress)
 
         initView()
+
+    }
+
+    override fun onResume() {
+        super.onResume()
         loadData()
     }
 
@@ -54,7 +63,7 @@ class ShipAddressActivity : BaseMvpActivity<ShipAddressPresenter>(), ShipAddress
             }
 
             override fun onEdit(address: ShipAddress) {
-                startActivity<ShipAddressEditActivity>()
+                startActivity<ShipAddressEditActivity>(OrderConstant.KEY_SHIP_ADDRESS to address)
             }
 
             override fun onDelete(address: ShipAddress) {
@@ -62,23 +71,32 @@ class ShipAddressActivity : BaseMvpActivity<ShipAddressPresenter>(), ShipAddress
                     .setContext(this@ShipAddressActivity)
                     .setStyle(AlertView.Style.Alert)
                     .setTitle("删除")
-                    .setMessage("确认删除该地址？")
+                    .setMessage("确定删除该地址？")
                     .setCancelText("取消")
                     .setDestructive("确定")
-                    .setOnItemClickListener(object : OnItemClickListener{
-                        override fun onItemClick(o: Any?, position: Int) {
-                            if (position == 0) {
-                                mPresenter.deleteShipAddress(address.id)
-                            }
+                    .setOnItemClickListener { _, position ->
+                        if (position == 0) {
+                            mPresenter.deleteShipAddress(address.id)
                         }
-
-                    })
+                    }
                     .build()
                     .show()
 
             }
 
         }
+
+        //从订单确认页进入选择收货地址
+        if (intent.getBooleanExtra(OrderConstant.KEY_IS_SELECT_ADDRESS, false)) {
+            //点击选择地址
+            mAdapter.setOnItemClickListener(object: BaseRecyclerViewAdapter.OnItemClickListener<ShipAddress> {
+                override fun onItemClick(item: ShipAddress, position: Int) {
+                    EventBus.getDefault().post(SelectAddressEvent(item))
+                    finish()
+                }
+            })
+        }
+
 
         mAddAddressBtn.onClick {
             startActivity<ShipAddressEditActivity>()
