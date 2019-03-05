@@ -8,6 +8,8 @@
         </activity>
         <activity android:name=".ui.activity.ShipAddressEditActivity">
         </activity>
+        <activity android:name=".ui.activity.OrderActivity">
+        </activity>
     </application>
 
 </manifest>

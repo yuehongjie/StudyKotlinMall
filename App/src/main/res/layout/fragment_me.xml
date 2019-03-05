@@ -49,7 +49,7 @@
             android:id="@+id/mAddressTv"
             android:background="@drawable/border_all"
             android:layout_marginTop="@dimen/common_margin"
-            android:text="收货管理"
+            android:text="收货地址"
             android:drawableLeft="@drawable/icon_address"
             style="@style/MeItemStyle"/>
     <TextView

@@ -146,9 +146,7 @@ class CartListFragment: BaseMvpFragment<CartListPresenter>(), CartListView {
             mHeaderBar.getRightView().setVisible(false)
         }
 
-        //通知（首页）更新购物车数量
-        AppPrefsUtils.putInt(GoodsConstant.SP_CART_COUNT, mAdapter.dataList.size)
-        EventBus.getDefault().post(UpdateCartSizeEvent())
+        refreshCartCount(mAdapter.dataList.size)
 
     }
 
@@ -182,6 +180,14 @@ class CartListFragment: BaseMvpFragment<CartListPresenter>(), CartListView {
             mMultiStateView.viewState = MultiStateView.VIEW_STATE_EMPTY
             mHeaderBar.getRightView().setVisible(false)
         }
+
+        refreshCartCount(result?.count() ?: 0)
+    }
+
+    //通知（首页、详情页等）更新购物车数量
+    private fun refreshCartCount(count: Int) {
+        AppPrefsUtils.putInt(GoodsConstant.SP_CART_COUNT, count)
+        EventBus.getDefault().post(UpdateCartSizeEvent())
     }
 
     //是否全部选中的事件

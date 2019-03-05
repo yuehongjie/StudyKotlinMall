@@ -11,14 +11,11 @@
             style="@style/OrderShipAddress"/>
     <RelativeLayout
             style="@style/MatchWrap"
-            android:background="@drawable/border_bottom"
-            android:paddingLeft="@dimen/common_padding"
-            android:paddingTop="@dimen/common_padding_middle"
-            android:paddingRight="@dimen/common_padding"
-            android:paddingBottom="@dimen/common_padding_middle">
+            android:background="@drawable/border_bottom">
         <TextView
                 android:id="@+id/mSetDefaultTv"
                 style="@style/WrapWrap"
+                android:padding="@dimen/common_padding_middle"
                 android:background="@null"
                 android:button="@null"
                 android:text="设为默认"
@@ -31,7 +28,7 @@
                 android:id="@+id/mEditTv"
                 style="@style/WrapWrap"
                 android:gravity="center_vertical"
-                android:layout_marginRight="@dimen/common_margin"
+                android:padding="@dimen/common_padding_middle"
                 android:text="@string/common_edit"
                 android:textSize="@dimen/text_small_size"
                 android:layout_toLeftOf="@+id/mDeleteTv"
@@ -39,6 +36,7 @@
         <TextView
                 android:id="@+id/mDeleteTv"
                 style="@style/WrapWrap"
+                android:padding="@dimen/common_padding_middle"
                 android:gravity="center_vertical"
                 android:text="@string/common_delete"
                 android:textSize="@dimen/text_small_size"
