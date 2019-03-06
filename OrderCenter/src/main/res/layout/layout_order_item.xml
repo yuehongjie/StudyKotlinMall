@@ -23,11 +23,13 @@
     <LinearLayout
             android:id="@+id/mMultiGoodsView"
             style="@style/MatchWrap.Horizontal"
-            android:background="@color/common_bg"
+            android:background="#fafafa"
+            android:padding="@dimen/common_padding_middle"
             android:visibility="gone"/>
     <RelativeLayout
             android:id="@+id/mSingleGoodsView"
-            style="@style/MatchWrap.Common"
+            style="@style/MatchWrap"
+            android:background="#fafafa"
             android:padding="@dimen/common_padding_middle">
         <ImageView
                 android:id="@+id/mGoodsIconIv"

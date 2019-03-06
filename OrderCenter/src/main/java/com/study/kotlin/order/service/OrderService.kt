@@ -5,9 +5,7 @@ import com.study.kotlin.base.ext.convert
 import com.study.kotlin.base.ext.convertBoolean
 import com.study.kotlin.order.data.api.OrderApi
 import com.study.kotlin.order.data.protocol.Order
-import com.study.kotlin.order.data.req.GetOrderByIdReq
-import com.study.kotlin.order.data.req.GetOrderListReq
-import com.study.kotlin.order.data.req.SubmitOrderReq
+import com.study.kotlin.order.data.req.*
 import rx.Observable
 
 class OrderService {
@@ -36,6 +34,23 @@ class OrderService {
             .getOrderList(GetOrderListReq(orderStatus))
             .convert()
 
+    }
+
+    //取消订单
+    fun cancelOrder(orderId: Int): Observable<Boolean> {
+
+        return RetrofitFactory.instance.create(OrderApi::class.java)
+            .cancelOrder(CancelOrderReq(orderId))
+            .convertBoolean()
+    }
+
+
+    //确认收货
+    fun confirmOrder(orderId: Int): Observable<Boolean> {
+
+        return RetrofitFactory.instance.create(OrderApi::class.java)
+            .confirmOrder(ConfirmOrderReq(orderId))
+            .convertBoolean()
     }
 
 }

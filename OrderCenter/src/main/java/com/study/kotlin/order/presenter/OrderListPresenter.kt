@@ -34,4 +34,43 @@ class OrderListPresenter @Inject constructor(): BasePresenter<OrderListView>() {
             })
     }
 
+    /**
+     * 确认收货
+     */
+    fun confirmOrder(orderId: Int) {
+
+        if (!isNetWorkAvailable()) {
+            return
+        }
+
+        mView.showLoading()
+
+        service.confirmOrder(orderId)
+            .execute(object: BaseSubscriber<Boolean>(mView) {
+                override fun onNext(result: Boolean) {
+                    mView.onConfirmOrderResult(result)
+                }
+            })
+
+    }
+
+    /**
+     * 取消订单
+     */
+    fun cancelOrder(orderId: Int) {
+
+        if (!isNetWorkAvailable()) {
+            return
+        }
+
+        mView.showLoading()
+
+        service.cancelOrder(orderId)
+            .execute(object: BaseSubscriber<Boolean>(mView) {
+                override fun onNext(result: Boolean) {
+                    mView.onCancelOrderResult(result)
+                }
+            })
+    }
+
 }
