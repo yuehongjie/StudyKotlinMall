@@ -8,17 +8,26 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bigkoo.alertview.AlertView
 import com.bigkoo.alertview.OnItemClickListener
 import com.kennyc.view.MultiStateView
+import com.study.kotlin.base.adapter.BaseRecyclerViewAdapter
 import com.study.kotlin.base.ui.fragment.BaseMvpFragment
 import com.study.kotlin.order.R
 import com.study.kotlin.order.data.common.OrderConstant
+import com.study.kotlin.order.data.common.OrderStatus
 import com.study.kotlin.order.data.protocol.Order
+import com.study.kotlin.order.event.CancelOrderEvent
+import com.study.kotlin.order.event.ConfirmOrderEvent
 import com.study.kotlin.order.injection.component.DaggerOrderComponent
 import com.study.kotlin.order.presenter.OrderListPresenter
 import com.study.kotlin.order.presenter.view.OrderListView
+import com.study.kotlin.order.ui.activity.OrderDetailActivity
 import com.study.kotlin.order.ui.adapter.OnOptClickListener
 import com.study.kotlin.order.ui.adapter.OrderAdapter
+import com.study.kotlin.provider.common.ProviderConstant
 import kotlinx.android.synthetic.main.fragment_order.*
-import org.jetbrains.anko.support.v4.toast
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.jetbrains.anko.startActivity
+import org.jetbrains.anko.toast
 
 class OrderFragment : BaseMvpFragment<OrderListPresenter>(), OrderListView {
 
@@ -49,6 +58,7 @@ class OrderFragment : BaseMvpFragment<OrderListPresenter>(), OrderListView {
         }
         initView()
         loadData()
+        EventBus.getDefault().register(this)
     }
 
     override fun injectComponent() {
@@ -70,6 +80,12 @@ class OrderFragment : BaseMvpFragment<OrderListPresenter>(), OrderListView {
                 doOpt(optType, order)
             }
         }
+
+        mAdapter.setOnItemClickListener(object: BaseRecyclerViewAdapter.OnItemClickListener<Order> {
+            override fun onItemClick(item: Order, position: Int) {
+                mActivity.startActivity<OrderDetailActivity>(ProviderConstant.KEY_ORDER_ID to item.id)
+            }
+        })
     }
 
     //确认收货、支付、取消订单
@@ -118,7 +134,7 @@ class OrderFragment : BaseMvpFragment<OrderListPresenter>(), OrderListView {
 
     override fun onConfirmOrderResult(result: Boolean) {
         toast("确认收货成功")
-        loadData()
+        EventBus.getDefault().post(ConfirmOrderEvent())
     }
 
     /**
@@ -136,7 +152,44 @@ class OrderFragment : BaseMvpFragment<OrderListPresenter>(), OrderListView {
 
     override fun onCancelOrderResult(result: Boolean) {
         toast("取消订单成功")
-        loadData()
+        EventBus.getDefault().post(CancelOrderEvent())
+    }
+
+    /** 确认收货事件 */
+    @Subscribe
+    fun onEvent(event: ConfirmOrderEvent) {
+
+        //确认收货会影响的订单有：全部、待收货、已完成
+        if (mOrderStatus == OrderStatus.ORDER_ALL ||
+            mOrderStatus == OrderStatus.ORDER_WAIT_CONFIRM ||
+            mOrderStatus == OrderStatus.ORDER_COMPLETED) {
+
+            loadData()
+
+        }
+
+    }
+
+    /** 取消订单事件 */
+    @Subscribe
+    fun onEvent(event: CancelOrderEvent) {
+        //取消订单会影响的订单有：全部、待支付、已取消
+        if (mOrderStatus == OrderStatus.ORDER_ALL ||
+            mOrderStatus == OrderStatus.ORDER_WAIT_PAY ||
+            mOrderStatus == OrderStatus.ORDER_CANCELED) {
+
+            loadData()
+
+        }
+    }
+
+    private fun toast(msg: String) {
+        mActivity.toast(msg)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        EventBus.getDefault().unregister(this)
     }
 
 }

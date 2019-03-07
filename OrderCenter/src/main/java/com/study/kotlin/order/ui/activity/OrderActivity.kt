@@ -23,6 +23,7 @@ class OrderActivity : BaseActivity() {
         mOrderTab.tabMode = TabLayout.MODE_FIXED
         mOrderVp.adapter = OrderVpAdapter(supportFragmentManager)
         mOrderTab.setupWithViewPager(mOrderVp)
+        mOrderVp.offscreenPageLimit = 4 //缓存几个页面
 
         mOrderVp.currentItem = intent.getIntExtra(OrderConstant.KEY_ORDER_STATUS, OrderStatus.ORDER_ALL)
 
