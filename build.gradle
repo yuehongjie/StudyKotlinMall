@@ -32,6 +32,9 @@ buildscript {
 
 allprojects {
     repositories {
+        flatDir {
+            dirs '../PayCenter/libs' //aar 目录  默认是 App module ,如果在依赖库 module 中需要指定 aar 所在的相对路径
+        }
         google()
         mavenCentral() // 增加 mavenCentral
         jcenter()

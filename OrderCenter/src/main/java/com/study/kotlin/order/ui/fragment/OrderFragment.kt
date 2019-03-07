@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.alibaba.android.arouter.launcher.ARouter
 import com.bigkoo.alertview.AlertView
 import com.bigkoo.alertview.OnItemClickListener
 import com.kennyc.view.MultiStateView
@@ -23,6 +24,7 @@ import com.study.kotlin.order.ui.activity.OrderDetailActivity
 import com.study.kotlin.order.ui.adapter.OnOptClickListener
 import com.study.kotlin.order.ui.adapter.OrderAdapter
 import com.study.kotlin.provider.common.ProviderConstant
+import com.study.kotlin.provider.router.RouterPath
 import kotlinx.android.synthetic.main.fragment_order.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -100,7 +102,12 @@ class OrderFragment : BaseMvpFragment<OrderListPresenter>(), OrderListView {
             }
 
             OrderConstant.OPT_ORDER_PAY -> {
-                toast("去支付")
+                ARouter.getInstance()
+                    .build(RouterPath.PayCenter.PATH_PAY)
+                    .withInt(ProviderConstant.KEY_ORDER_ID, order.id)
+                    .withLong(ProviderConstant.KEY_ORDER_PRICE, order.totalPrice)
+                    .navigation()
+
             }
         }
     }

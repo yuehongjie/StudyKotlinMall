@@ -19,4 +19,14 @@ object RouterPath {
         }
     }
 
+    //支付中心
+    class PayCenter{
+        companion object {
+            /**
+             * 支付页面
+             */
+            const val PATH_PAY = "/payCenter/pay"
+        }
+    }
+
 }
