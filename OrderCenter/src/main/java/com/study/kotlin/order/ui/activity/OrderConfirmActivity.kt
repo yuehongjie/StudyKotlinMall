@@ -122,6 +122,13 @@ class OrderConfirmActivity : BaseMvpActivity<OrderConfirmPresenter>(), OrderConf
     /** 提交订单成功 */
     override fun onSubmitOrderResult(result: Boolean) {
         toast("提交订单成功")
+        ARouter.getInstance()
+            .build(RouterPath.PayCenter.PATH_PAY)
+            .withInt(ProviderConstant.KEY_ORDER_ID, mCurrentOrder.id)
+            .withLong(ProviderConstant.KEY_ORDER_PRICE, mCurrentOrder.totalPrice)
+            .navigation()
+
+        finish()
     }
 
 

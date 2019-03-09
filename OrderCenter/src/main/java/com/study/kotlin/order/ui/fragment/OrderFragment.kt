@@ -24,6 +24,7 @@ import com.study.kotlin.order.ui.activity.OrderDetailActivity
 import com.study.kotlin.order.ui.adapter.OnOptClickListener
 import com.study.kotlin.order.ui.adapter.OrderAdapter
 import com.study.kotlin.provider.common.ProviderConstant
+import com.study.kotlin.provider.event.PaySuccessEvent
 import com.study.kotlin.provider.router.RouterPath
 import kotlinx.android.synthetic.main.fragment_order.*
 import org.greenrobot.eventbus.EventBus
@@ -187,6 +188,17 @@ class OrderFragment : BaseMvpFragment<OrderListPresenter>(), OrderListView {
 
             loadData()
 
+        }
+    }
+
+    /** 订单支付成功事件 */
+    @Subscribe
+    fun onEvent(event: PaySuccessEvent) {
+        //支付成功影响的订单有： 全部、待支付、待收货
+        if (mOrderStatus == OrderStatus.ORDER_ALL ||
+            mOrderStatus == OrderStatus.ORDER_WAIT_PAY ||
+            mOrderStatus == OrderStatus.ORDER_WAIT_CONFIRM) {
+            loadData()
         }
     }
 
