@@ -8,7 +8,7 @@ import com.study.kotlin.base.injection.component.AppComponent
 import com.study.kotlin.base.injection.component.DaggerAppComponent
 import com.study.kotlin.base.injection.module.AppModule
 
-class BaseApplication : Application() {
+open class BaseApplication : Application() {
 
 
     //提供 App 级别的 appComponent 的实例

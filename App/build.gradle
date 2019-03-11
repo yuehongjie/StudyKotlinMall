@@ -17,6 +17,11 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         multiDexEnabled true
+
+//        //配置极光的包名参数
+        manifestPlaceholders = [
+                JPUSH_PKGNAME :applicationId
+        ]
     }
     buildTypes {
         release {
