@@ -29,4 +29,14 @@ object RouterPath {
         }
     }
 
+    //消息中心
+    class MessageCenter{
+        companion object {
+            /**
+             * push id
+             */
+            const val PATH_MESSAGE_PUSH = "/messageCenter/push"
+        }
+    }
+
 }

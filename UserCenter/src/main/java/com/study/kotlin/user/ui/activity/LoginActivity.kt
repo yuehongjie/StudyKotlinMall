@@ -2,10 +2,13 @@ package com.study.kotlin.user.ui.activity
 
 import android.os.Bundle
 import android.view.View
+import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.alibaba.android.arouter.launcher.ARouter
 import com.study.kotlin.user.utils.UserPrefsUtils
 import com.study.kotlin.base.ext.enable
 import com.study.kotlin.base.ui.activity.BaseMvpActivity
+import com.study.kotlin.provider.PushProvider
 import com.study.kotlin.provider.router.RouterPath
 import com.study.kotlin.user.R
 import com.study.kotlin.user.data.protocol.UserInfo
@@ -19,9 +22,16 @@ import org.jetbrains.anko.toast
 @Route(path = RouterPath.UserCenter.PATH_LOGIN)
 class LoginActivity: BaseMvpActivity<LoginPresenter>(), LoginView, View.OnClickListener {
 
+    //通过注解解耦，获取服务实例
+    @Autowired(name = RouterPath.MessageCenter.PATH_MESSAGE_PUSH)
+    @JvmField
+    var mPushProvider: PushProvider? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        //注入 ARouter
+        ARouter.getInstance().inject(this)
 
         setContentView(R.layout.activity_login)
 
@@ -82,7 +92,11 @@ class LoginActivity: BaseMvpActivity<LoginPresenter>(), LoginView, View.OnClickL
 
         when(v.id) {
 
-            R.id.mLoginBtn -> { mPresenter.login(mMobileEt.text.toString(), mPwdEt.text.toString(), "") }
+            R.id.mLoginBtn -> {
+
+                mPresenter.login(mMobileEt.text.toString(), mPwdEt.text.toString(), mPushProvider?.getPushId() ?: "")
+
+            }
 
             R.id.mRightTv -> { startActivity<RegisterActivity>() }
 

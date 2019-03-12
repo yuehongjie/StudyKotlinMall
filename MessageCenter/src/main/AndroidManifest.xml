@@ -12,6 +12,21 @@
 			android:name="JPUSH_CHANNEL" android:value="${JPUSH_CHANNEL}"
 			tools:replace="android:value"/>
 
+		<receiver
+			android:name=".receiver.MessageReceiver"
+			android:enabled="true"
+			android:exported="false">
+			<intent-filter>
+				<action android:name="cn.jpush.android.intent.REGISTRATION" />
+				<action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED" />
+				<action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED" />
+				<action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED" />
+				<action android:name="cn.jpush.android.intent.NOTIFICATION_CLICK_ACTION" />
+				<action android:name="cn.jpush.android.intent.CONNECTION" />
+				<category android:name="com.study.kotlin.mall" />  <!--应该和平台上注册的一样，而不是这个 module 的包名-->
+			</intent-filter>
+		</receiver>
+
 	</application>
 
 </manifest>
