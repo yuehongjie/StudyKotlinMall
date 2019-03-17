@@ -7,7 +7,8 @@ object RouterPath {
     class UserCenter{
         companion object {
             /** 登录 */
-            const val PATH_LOGIN = "/userCenter/login"  // 路径至少要有两级 且以 / 开始
+            const val PATH_LOGIN = "/userCenter/login"  // 路径至少要有两级 且以 / 开始 否则报错：
+            // ARouter::Extract the default group failed, the path must be start with '/' and contain more than 2 '/'!
         }
     }
 
@@ -36,6 +37,7 @@ object RouterPath {
              * push id
              */
             const val PATH_MESSAGE_PUSH = "/messageCenter/push"
+            const val PATH_MESSAGE_ORDER = "/messageCenter/order" //点击通知打开订单详情页
         }
     }
 

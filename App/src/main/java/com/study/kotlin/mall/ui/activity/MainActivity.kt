@@ -13,6 +13,8 @@ import com.study.kotlin.goods.ui.fragment.CategoryFragment
 import com.study.kotlin.mall.R
 import com.study.kotlin.mall.ui.fragment.HomeFragment
 import com.study.kotlin.mall.ui.fragment.MeFragment
+import com.study.kotlin.message.event.MessageBadgeEvent
+import com.study.kotlin.message.ui.fragment.MessageFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -27,7 +29,7 @@ class MainActivity : BaseActivity() {
     private val mHomeFragment:HomeFragment by lazy { HomeFragment() }   //首页
     private val mCateFragment: CategoryFragment by lazy { CategoryFragment() }   //分类
     private val mCarFragment:CartListFragment by lazy { CartListFragment()}    //购物车
-    private val mMsgFragment:HomeFragment by lazy { HomeFragment() }    //消息
+    private val mMsgFragment:MessageFragment by lazy { MessageFragment() }    //消息
     private val mMeFragment:MeFragment by lazy { MeFragment() }         //我
 
     //当前选中的 Fragment
@@ -124,6 +126,10 @@ class MainActivity : BaseActivity() {
         
     }
 
+    @Subscribe
+    fun onEvent(event: MessageBadgeEvent) {
+        mBottomNavBar.checkMsgBadgeVisible(event.isVisible)
+    }
 
 
 
