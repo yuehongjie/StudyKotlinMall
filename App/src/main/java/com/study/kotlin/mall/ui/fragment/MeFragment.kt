@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.study.kotlin.base.ext.onClick
+import com.study.kotlin.base.ext.setVisible
 import com.study.kotlin.base.ui.fragment.BaseFragment
 import com.study.kotlin.base.utils.GlideUtils
 import com.study.kotlin.mall.R
@@ -19,6 +20,7 @@ import com.study.kotlin.user.ui.activity.UserInfoActivity
 import com.study.kotlin.user.utils.UserPrefsUtils
 import kotlinx.android.synthetic.main.fragment_me.*
 import org.jetbrains.anko.startActivity
+import org.jetbrains.anko.support.v4.toast
 
 class MeFragment: BaseFragment(), View.OnClickListener {
 
@@ -42,9 +44,10 @@ class MeFragment: BaseFragment(), View.OnClickListener {
     private fun initView() {
 
         mUserIconIv.onClick(this)
-        mUserNameTv.onClick(this)
+        mUserLayout.onClick(this)
         mSettingTv.onClick (this)
         mAddressTv.onClick(this)
+        mShareTv.onClick(this)
         //订单
         mWaitPayOrderTv.onClick(this)
         mWaitConfirmOrderTv.onClick(this)
@@ -60,12 +63,18 @@ class MeFragment: BaseFragment(), View.OnClickListener {
 
             mUserIconIv.setImageResource(R.drawable.icon_default_user)
             mUserNameTv.text = getString(R.string.un_login_text)
+            mUserSign.setVisible(false)
 
         }else {
 
             val localSavedIcon = UserPrefsUtils.getLocalSavedIcon()
             GlideUtils.loadImageCenterCrop(context!!, localSavedIcon, R.drawable.icon_default_user, mUserIconIv)
             mUserNameTv.text = UserPrefsUtils.getUserName()
+            var userSign = UserPrefsUtils.getUserSign()
+            if (userSign == "") {
+                userSign = "暂无签名"
+            }
+            mUserSign.text = userSign
 
         }
 
@@ -75,7 +84,7 @@ class MeFragment: BaseFragment(), View.OnClickListener {
 
         when(v?.id) {
             //头像、用户名
-            R.id.mUserIconIv, R.id.mUserNameTv -> {
+            R.id.mUserIconIv, R.id.mUserLayout -> {
                 afterLogin {
                     activity?.startActivity<UserInfoActivity>()
                 }
@@ -109,6 +118,10 @@ class MeFragment: BaseFragment(), View.OnClickListener {
             //全部订单
             R.id.mAllOrderTv -> {
                 activity?.startActivity<OrderActivity>(OrderConstant.KEY_ORDER_STATUS to OrderStatus.ORDER_ALL)
+            }
+
+            R.id.mShareTv -> {
+                toast(R.string.coming_soon_tip)
             }
         }
 

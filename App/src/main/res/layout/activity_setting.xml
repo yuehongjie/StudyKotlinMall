@@ -6,6 +6,11 @@
             style="@style/MatchWrap"
             app:titleText="设置"/>
     <TextView
+        android:id="@+id/mUserInfoTv"
+        style="@style/SettingItemStyle"
+        android:text="个人信息"/>
+
+    <TextView
             android:id="@+id/mUserProtocolTv"
             style="@style/SettingItemStyle"
             android:text="用户协议"/>
@@ -16,7 +21,7 @@
     <TextView
             android:id="@+id/mAboutTv"
             style="@style/SettingItemStyle"
-            android:text="关于"/>
+            android:text="关于我们"/>
     <Button
             android:id="@+id/mLogoutBtn"
             android:text="退出登录"

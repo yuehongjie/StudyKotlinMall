@@ -13,14 +13,29 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="@dimen/common_margin"
                 android:src="@drawable/icon_default_user"/>
-        <TextView
+        <LinearLayout
+            android:id="@+id/mUserLayout"
+            style="@style/WrapWrap.Vertical"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/common_margin">
+
+            <TextView
                 android:id="@+id/mUserNameTv"
                 style="@style/WrapWrap"
                 android:textSize="@dimen/text_big_size"
                 android:textColor="@color/common_white"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="@dimen/common_margin"
                 android:text="@string/un_login_text"/>
+
+            <TextView
+                android:id="@+id/mUserSign"
+                style="@style/WrapWrap"
+                android:layout_marginTop="@dimen/common_margin_small"
+                android:textSize="@dimen/text_middle_size"
+                android:textColor="@color/common_white"
+                android:text="签名：xxx"/>
+
+        </LinearLayout>
+
     </LinearLayout>
     <LinearLayout
             android:background="@drawable/border_bottom"

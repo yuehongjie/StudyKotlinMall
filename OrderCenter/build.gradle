@@ -11,6 +11,12 @@ kapt {
         arg("AROUTER_MODULE_NAME", project.getName())
     }
 }
+
+// kotlin 对 android 的扩展
+androidExtensions{
+    experimental = true
+}
+
 android {
     compileSdkVersion 28
 

@@ -37,7 +37,8 @@ object RouterPath {
              * push id
              */
             const val PATH_MESSAGE_PUSH = "/messageCenter/push"
-            const val PATH_MESSAGE_ORDER = "/messageCenter/order" //点击通知打开订单详情页
+            const val PATH_MESSAGE_ORDER = "/messageOrder/orderDetail" //点击通知打开订单详情页
+            // 注意这里不能再使用 messageCenter 前缀了，因为它已经在其他模块中使用过了
         }
     }
 

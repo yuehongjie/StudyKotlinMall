@@ -19,6 +19,7 @@ import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.layout_topic_item.*
 import me.crosswall.lib.coverflow.CoverFlow
 import org.jetbrains.anko.support.v4.startActivity
+import org.jetbrains.anko.support.v4.toast
 
 class HomeFragment: BaseFragment() {
 
@@ -43,6 +44,10 @@ class HomeFragment: BaseFragment() {
 
         mSearchTv.onClick {
             startActivity<SearchGoodsActivity>()
+        }
+
+        mScanIv.onClick {
+            toast(R.string.coming_soon_tip)
         }
 
     }

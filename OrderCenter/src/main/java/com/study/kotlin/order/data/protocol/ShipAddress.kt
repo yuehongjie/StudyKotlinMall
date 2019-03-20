@@ -2,11 +2,24 @@ package com.study.kotlin.order.data.protocol
 
 import android.os.Parcel
 import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
 
 /*
    收货地址
  */
 
+//使用 kotlin 的扩展注解，自动进行序列化
+@Parcelize
+data class ShipAddress(
+        val id: Int,
+        var shipUserName: String,
+        var shipUserMobile: String,
+        var shipAddress: String,
+        var shipIsDefault: Int
+): Parcelable
+
+/*
+//不适用扩展的时候的序列化方式
 data class ShipAddress(
         val id: Int,
         var shipUserName: String,
@@ -44,3 +57,5 @@ data class ShipAddress(
                 }
         }
 }
+
+*/

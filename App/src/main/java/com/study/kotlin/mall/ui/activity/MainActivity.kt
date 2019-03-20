@@ -19,6 +19,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
+import org.jetbrains.anko.toast
 import rx.Observable
 import rx.android.schedulers.AndroidSchedulers
 import java.util.concurrent.TimeUnit
@@ -137,5 +138,20 @@ class MainActivity : BaseActivity() {
         super.onDestroy()
 
         EventBus.getDefault().unregister(this)
+    }
+
+
+    var lastPressTime = 0L
+
+    override fun onBackPressed() {
+
+        val time = System.currentTimeMillis() //当前点击的时间
+        if (time - lastPressTime > 2000) { //与上次点击的时间差 > 2s 则需要再点一次
+            toast("再按一次退出程序")
+            lastPressTime = time
+        }else {
+            super.onBackPressed()
+        }
+
     }
 }
