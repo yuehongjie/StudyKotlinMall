@@ -24,6 +24,7 @@
         </activity>
         
         <activity android:name=".ui.activity.SettingActivity"/>
+        <activity android:name=".ui.activity.ChangeBaseUrlActivity"/>
     </application>
 
 </manifest>

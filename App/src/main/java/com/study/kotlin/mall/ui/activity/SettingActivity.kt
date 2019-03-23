@@ -56,6 +56,12 @@ class SettingActivity: BaseActivity() {
 
         }
 
+
+        //修改 BaseUrl
+        mChangeBaseUrlTv.onClick {
+            startActivity<ChangeBaseUrlActivity>()
+        }
+
     }
 
     private fun checkLogin() {

@@ -12,7 +12,7 @@
         android:id="@+id/mMsgIconIv"
         android:layout_width="@dimen/msg_icon_width"
         android:layout_height="@dimen/msg_icon_height"
-        android:src="@drawable/default_loading"/>
+        android:src="@drawable/icon_default_user"/>
     <TextView
         android:id="@+id/mMsgTitleTv"
         style="@style/WrapWrap"

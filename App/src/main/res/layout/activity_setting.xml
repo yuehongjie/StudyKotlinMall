@@ -22,6 +22,12 @@
             android:id="@+id/mAboutTv"
             style="@style/SettingItemStyle"
             android:text="关于我们"/>
+
+    <TextView
+        android:id="@+id/mChangeBaseUrlTv"
+        style="@style/SettingItemStyle"
+        android:text="设置临时 BaseUrl"/>
+
     <Button
             android:id="@+id/mLogoutBtn"
             android:text="退出登录"

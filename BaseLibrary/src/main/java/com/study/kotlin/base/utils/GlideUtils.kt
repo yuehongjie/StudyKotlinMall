@@ -35,12 +35,11 @@ object GlideUtils {
     /*
      *  有加载失败和预览图片
      */
-    fun loadUrlImage(context: Context, url: String, imageView: ImageView){
+    fun loadUrlImage(context: Context, url: String, imageView: ImageView, default: Int = R.drawable.default_loading){
 
         val options = RequestOptions()
-            .placeholder(R.drawable.default_loading)
-            .error(R.drawable.default_loading)
-            .centerCrop()
+            .placeholder(default)
+            .error(default)
 
         Glide.with(context)
             .load(url)

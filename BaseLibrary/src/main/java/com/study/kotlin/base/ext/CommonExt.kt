@@ -87,6 +87,16 @@ fun ImageView.loadUrl(url: String) {
 }
 
 /**
+ * ImageView 加载图片
+ */
+fun ImageView.loadUrl(url: String, defaultImg: Int) {
+
+    GlideUtils.loadUrlImage(context, url, this, defaultImg )
+
+}
+
+
+/**
  * 扩展 View 是否可见
  */
 fun View.setVisible(visible: Boolean) {
